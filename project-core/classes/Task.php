@@ -2,61 +2,17 @@
 
 class Task
 {
-    public array $statuses = [];
-    public array $actions = [];
-    public array $statusesAndActionsMaps = [];
+    const STATUS_NEW = 'new'; //новое
+    const STATUS_CANCELLED = 'cancelled'; //отменено
+    const STATUS_ACTIVE = 'active'; // в работе
+    const STATUS_DONE = 'done'; //выполнено
+    const STATUS_FAILED = 'failed'; //провалено
 
+    const RESPONSE_ACTION = 'response'; //Откликнуться на задание
+    const CANCEL_ACTION = 'cancel';//Отменить
+    const REFUSAL_ACTION = 'refusal'; //Отказаться от задания
+    const COMPLETION_ACTION = 'completion'; //Завершить задание
 
-    public string $currentActions;
-
-
-    public static int $userId;
-    public static int $customerId;
-
-
-    public function __construct($userId, $customerId)
-    {
-        self::$userId = $userId;
-        self::$customerId =$customerId;
-    }
-
-    public function getStatuses(): array
-    {
-        return $this->statuses;
-    }
-
-
-    public function getActions(): array
-    {
-        return $this->actions;
-    }
-
-
-    public static function getUserId(): int
-    {
-        return self::$userId;
-    }
-
-    public static function getCustomerId(): int
-    {
-        return self::$customerId;
-    }
-
-    public function getCurrentActions(): string
-    {
-        return $this->currentActions;
-    }
-
-    public function getStatusesAndActionsMaps(): array
-    {
-        return $this->statusesAndActionsMaps;
-    }
-
-
-
-    public function setCurrentActions(string $currentActions): void
-    {
-        $this->currentActions = $currentActions;
-    }
-
+    const CUSTOMER = 'customer';
+    const EXECUTOR = 'executor';
 }
