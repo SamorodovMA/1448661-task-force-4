@@ -73,14 +73,14 @@ class Task
 
 
 //2. Возвращать имя статуса, в который перейдёт задание после выполнения конкретного действия;
-    public function getNameStatus(): ?string
+    public function getStatusName(): ?string
     {
         return match ($this->availableActions) {
             self::COMPLETION_ACTION => self::STATUS_DONE, //2.5 Завершение задания/выполнено, п. из ТЗ
             self::REFUSAL_ACTION => self::STATUS_FAILED, //2.6 Отказ от задания, п. из ТЗ
             self::CANCEL_ACTION => self::STATUS_CANCELLED, //2.7 Отмена задания, п. из ТЗ
             self::ACCEPT_ACTION => self::STATUS_ACTIVE, //2.8 Старт задания, п. из ТЗ
-            default => null
+            default => self::STATUS_NEW
         };
     }
 
@@ -102,7 +102,7 @@ class Task
         return $this->availableActions;
     }
 
-//5.1 Хранить и ID заказчика.
+//5.1 Хранить ID заказчика.
     public function getCustomerId(): int
     {
         return $this->customerId;
