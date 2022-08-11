@@ -1,5 +1,5 @@
 <?php
-
+namespace tf\classes\tasks;
 use JetBrains\PhpStorm\ArrayShape;
 
 class Task
@@ -34,18 +34,18 @@ class Task
     }
 
 //карта статусов
-   #[ArrayShape([
-       self::STATUS_NEW => "string",
-       self::STATUS_CANCELLED => "string",
-       self::STATUS_ACTIVE => "string",
-       self::STATUS_DONE => "string",
-       self::STATUS_FAILED => "string"
-   ])] public static function statusList(): array
+    #[ArrayShape([
+        self::STATUS_NEW => "string",
+        self::STATUS_CANCELLED => "string",
+        self::STATUS_ACTIVE => "string",
+        self::STATUS_DONE => "string",
+        self::STATUS_FAILED => "string"
+    ])] public static function statusList(): array
     {
         return
             [
                 self::STATUS_NEW => 'Новое',
-                self::STATUS_CANCELLED =>'Отменено',
+                self::STATUS_CANCELLED => 'Отменено',
                 self::STATUS_ACTIVE => 'В работе',
                 self::STATUS_DONE => 'Выполнено',
                 self::STATUS_FAILED => 'Провалено'
