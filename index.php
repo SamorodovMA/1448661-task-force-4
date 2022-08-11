@@ -6,3 +6,5 @@ $test = new Task('active', 'completion');
 
 debug($test->getNameStatus());
 debug($test->getAvailableActionsList());
+
+var_dump( assert($test->getNameStatus()== Task::STATUS_NEW, 'CANCEL_ACTION'));

@@ -1,5 +1,7 @@
 <?php
 
+use JetBrains\PhpStorm\ArrayShape;
+
 class Task
 {
 //1.1 Определять список из всех доступных статусов;
@@ -29,6 +31,44 @@ class Task
     {
         $this->currentStatus = $currentStatus;
         $this->availableActions = $availableActions;
+    }
+
+//карта статусов
+   #[ArrayShape([
+       self::STATUS_NEW => "string",
+       self::STATUS_CANCELLED => "string",
+       self::STATUS_ACTIVE => "string",
+       self::STATUS_DONE => "string",
+       self::STATUS_FAILED => "string"
+   ])] public static function statusList(): array
+    {
+        return
+            [
+                self::STATUS_NEW => 'Новое',
+                self::STATUS_CANCELLED =>'Отменено',
+                self::STATUS_ACTIVE => 'В работе',
+                self::STATUS_DONE => 'Выполнено',
+                self::STATUS_FAILED => 'Провалено'
+            ];
+    }
+
+//Карта действий
+    #[ArrayShape([
+        self::RESPONSE_ACTION => "string",
+        self::CANCEL_ACTION => "string",
+        self::REFUSAL_ACTION => "string",
+        self::COMPLETION_ACTION => "string",
+        self::ACCEPT_ACTION => "string"
+    ])] static function actionList(): array
+    {
+        return
+            [
+                self::RESPONSE_ACTION => 'Откликнуться на задание',
+                self::CANCEL_ACTION => 'Отменить',
+                self::REFUSAL_ACTION => 'Отказаться от задания',
+                self::COMPLETION_ACTION => 'Завершить задание, выполнено',
+                self::ACCEPT_ACTION => 'Принять'
+            ];
     }
 
 
