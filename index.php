@@ -4,9 +4,10 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use tf\classes\tasks\Task;
 
-$test = new Task('active', 'completion');
+$test = new Task(1, 1);
 
-debug($test->getStatusName());
-debug($test->getAvailableActionsList());
+debug($test->getAvailableActionsList('new'));
+debug($test->getStatus('refusal'));
+debug($test->getExecutorId());
+var_dump( assert($test->getStatus('refusal')== Task::STATUS_NEW, 'CANCEL_ACTION'));
 
-var_dump( assert($test->getStatusName()== Task::STATUS_NEW, 'CANCEL_ACTION'));

@@ -1,46 +1,34 @@
 <?php
 namespace tf\classes\tasks;
-use JetBrains\PhpStorm\ArrayShape;
 
 class Task
 {
-//1.1 Определять список из всех доступных статусов;
     const STATUS_NEW = 'new'; //новое
     const STATUS_CANCELLED = 'cancelled'; //отменено
     const STATUS_ACTIVE = 'active'; // в работе - на исполнении
     const STATUS_DONE = 'done'; //выполнено-завершено
     const STATUS_FAILED = 'failed'; //провалено
 
-//1.2 Определять список из всех доступных действий;
     const RESPONSE_ACTION = 'response'; //Откликнуться на задание
     const CANCEL_ACTION = 'cancel';//Отменить
     const REFUSAL_ACTION = 'refusal'; //Отказаться от задания
     const COMPLETION_ACTION = 'completion'; //Завершить задание, выполнено
     const ACCEPT_ACTION = 'accept'; //Выполняется после нажатия заказчиком кнопки «Принять»? п.2.8 из ТЗ
 
-    public string $currentStatus;
+    private int $customerId;
+    private int $executorId;
 
-
-    public string $availableActions;
-
-    public int $customerId;
-    public int $executorId;
-
-
-    public function __construct($currentStatus, $availableActions)
+    public function __construct( $customerId, $executorId)
     {
-        $this->currentStatus = $currentStatus;
-        $this->availableActions = $availableActions;
+        $this->customerId = $customerId;
+        $this->executorId = $executorId;
     }
 
-//карта статусов
-    #[ArrayShape([
-        self::STATUS_NEW => "string",
-        self::STATUS_CANCELLED => "string",
-        self::STATUS_ACTIVE => "string",
-        self::STATUS_DONE => "string",
-        self::STATUS_FAILED => "string"
-    ])] public static function statusList(): array
+    /**
+     * Функция возвращает карту статусов
+     * @return array
+     */
+    public static function getStatusesList(): array
     {
         return
             [
@@ -52,14 +40,11 @@ class Task
             ];
     }
 
-//Карта действий
-    #[ArrayShape([
-        self::RESPONSE_ACTION => "string",
-        self::CANCEL_ACTION => "string",
-        self::REFUSAL_ACTION => "string",
-        self::COMPLETION_ACTION => "string",
-        self::ACCEPT_ACTION => "string"
-    ])] static function actionList(): array
+    /**
+     * Функция возвращает карту действий
+     * @return array
+     */
+    public function getActionsList(): array
     {
         return
             [
@@ -71,44 +56,75 @@ class Task
             ];
     }
 
-
-//2. Возвращать имя статуса, в который перейдёт задание после выполнения конкретного действия;
-    public function getStatusName(): ?string
+    /**
+     * Функция возвращает имя статуса, в который перейдёт задание после выполнения конкретного действия;
+     * @param string $availableActions
+     * @return string
+     */
+    public function getStatus(string $availableActions): string
     {
-        return match ($this->availableActions) {
-            self::COMPLETION_ACTION => self::STATUS_DONE, //2.5 Завершение задания/выполнено, п. из ТЗ
-            self::REFUSAL_ACTION => self::STATUS_FAILED, //2.6 Отказ от задания, п. из ТЗ
-            self::CANCEL_ACTION => self::STATUS_CANCELLED, //2.7 Отмена задания, п. из ТЗ
-            self::ACCEPT_ACTION => self::STATUS_ACTIVE, //2.8 Старт задания, п. из ТЗ
-            default => self::STATUS_NEW
-        };
+        switch ($availableActions) {
+            case self::COMPLETION_ACTION: //2.5 Завершение задания, п. из ТЗ
+                return self::STATUS_DONE;
+                break;
+            case self::REFUSAL_ACTION: //2.6 Отказ от задания, п. из ТЗ
+                return self::STATUS_FAILED;
+                break;
+            case self::CANCEL_ACTION:  //2.7 Отмена задания, п. из ТЗ
+                return self::STATUS_CANCELLED;
+                break;
+            case self::ACCEPT_ACTION: //2.8 Старт задания, п. из ТЗ
+                return self::STATUS_ACTIVE;
+                break;
+            default:
+                return self::STATUS_NEW;
+        }
     }
 
-//3. Определять список доступных действий в текущем статусе;
-    public function getAvailableActionsList(): array
+    /**
+     * Функция определяет список доступных действий в текущем статусе;
+     * @param string $currentStatus
+     * @return array
+     */
+    public function getAvailableActionsList(string $currentStatus): array
     {
-        return match ($this->currentStatus) {
-            self::STATUS_NEW => [self::RESPONSE_ACTION, self::CANCEL_ACTION],
-
-            self::STATUS_ACTIVE => [self::COMPLETION_ACTION, self::REFUSAL_ACTION],
-
-            default => [],
-        };
+        switch ($currentStatus) {
+            case self::STATUS_NEW:
+                return [self::RESPONSE_ACTION, self::CANCEL_ACTION];
+                break;
+            case self::STATUS_ACTIVE:
+                return [self::COMPLETION_ACTION, self::REFUSAL_ACTION];
+                break;
+            default:
+                return [];
+        }
     }
 
-//4.Хранить текущий статус задания;
-    public function getAvailableActions(): string
-    {
-        return $this->availableActions;
-    }
+    /**
+     * Функция возвращает текущий статус задания;
+     * @param string $currentStatus
+     * @return string
+     */
+public function getCurrentStatus(string $currentStatus):string
+{
+    return $currentStatus;
+}
 
-//5.1 Хранить ID заказчика.
+//5.1 Хранить ID заказчика
+    /**
+     * Функция возвращает ID заказчика
+     * @return int
+     */
     public function getCustomerId(): int
     {
         return $this->customerId;
     }
 
 //5.2 Хранить ID исполнителя
+    /**
+     * Функция возвращает ID исполнителя
+     * @return int
+     */
     public function getExecutorId(): int
     {
         return $this->executorId;
