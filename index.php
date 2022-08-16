@@ -6,7 +6,7 @@ use tf\classes\tasks\Task;
 
 $test = new Task(1, 1);
 
-debug($test->getAvailableActionsList('new'));
+debug($test->getAvailableActionsList(1));
 debug($test->getStatus('refusal'));
 debug($test->getExecutorId());
 var_dump( assert($test->getStatus('refusal')== Task::STATUS_NEW, 'CANCEL_ACTION'));

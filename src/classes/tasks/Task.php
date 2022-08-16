@@ -3,11 +3,11 @@ namespace tf\classes\tasks;
 
 class Task
 {
-    const STATUS_NEW = 'new'; //новое
-    const STATUS_CANCELLED = 'cancelled'; //отменено
-    const STATUS_ACTIVE = 'active'; // в работе - на исполнении
-    const STATUS_DONE = 'done'; //выполнено-завершено
-    const STATUS_FAILED = 'failed'; //провалено
+    const STATUS_NEW = 1; //'new'; //новое
+    const STATUS_CANCELLED = 2; //'cancelled'; //отменено
+    const STATUS_ACTIVE = 3; //'active'; // в работе - на исполнении
+    const STATUS_DONE = 4; //'done'; //выполнено-завершено
+    const STATUS_FAILED = 5; //'failed'; //провалено
 
     const RESPONSE_ACTION = 'response'; //Откликнуться на задание
     const CANCEL_ACTION = 'cancel';//Отменить
