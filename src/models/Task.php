@@ -9,7 +9,7 @@ class Task
     const STATUS_DONE = 4; //'done'; //выполнено-завершено
     const STATUS_FAILED = 5; //'failed'; //провалено
 
-    const ACTION_START = 1; //'start'; //заказчик запускает задачу
+    const ACTION_START = 'start'; //заказчик запускает задачу
     const ACTION_RESPONSE = 'response'; //Откликнуться на задание
     const ACTION_CANCEL = 'cancel';//Отменить
     const ACTION_REFUSAL = 'refusal'; //Отказаться от задания
