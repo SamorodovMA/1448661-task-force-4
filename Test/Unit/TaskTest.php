@@ -19,35 +19,33 @@ class TaskTest extends TestCase
     public function providerGetStatusAfterAction(): array
     {
         return [
-            [Task::ACTION_COMPLETION, Task::STATUS_DONE],
-            [Task::ACTION_REFUSAL, Task::STATUS_FAILED],
+            [Task::ACTION_COMPLETE, Task::STATUS_DONE],
+            [Task::ACTION_REFUSE, Task::STATUS_FAILED],
             [Task::ACTION_CANCEL, Task::STATUS_CANCELLED],
-            [Task::ACTION_ACCEPT, Task::STATUS_ACTIVE],
-            ['', Task::STATUS_NEW]
-
+            [Task::ACTION_START, Task::STATUS_WORKING]
         ];
     }
 
     /**
      * @dataProvider providerGetAvailableActions
+     * @param $status
      * @param $action
      * @param $currentUserId
      * @return void
      */
-    public function testGetAvailableActions($action, $currentUserId)
+    public function testGetAvailableActions($status, $action, $currentUserId)
     {
-        $testAction = new Task(Task::STATUS_NEW, 123, 456);
+        $testAction = new Task($status, 123, 456);
         $this->assertSame($action, $testAction->getAvailableActions($currentUserId));
     }
 
     public function providerGetAvailableActions(): array
     {
         return [
-            [Task::ACTION_CANCEL, 123],
-            [Task::ACTION_RESPONSE, 456],
-            [Task::ACTION_COMPLETION, 123],
-            [Task::ACTION_REFUSAL, 456]
+            [Task::STATUS_NEW, [Task::ACTION_START, Task::ACTION_CANCEL], 123],
+            [Task::STATUS_NEW, [Task::ACTION_RESPONSE], 456],
+            [Task::STATUS_WORKING, [Task::ACTION_COMPLETE], 123],
+            [Task::STATUS_WORKING, [Task::ACTION_REFUSE], 456]
         ];
     }
-
 }

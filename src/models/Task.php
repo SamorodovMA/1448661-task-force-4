@@ -3,18 +3,18 @@ namespace tf\models;
 
 class Task
 {
-    const STATUS_NEW = 1; //'new'; //новое
-    const STATUS_CANCELLED = 2; //'cancelled'; //отменено
-    const STATUS_ACTIVE = 3; //'active'; // в работе - на исполнении
-    const STATUS_DONE = 4; //'done'; //выполнено-завершено
-    const STATUS_FAILED = 5; //'failed'; //провалено
+    const STATUS_NEW = 1;
+    const STATUS_CANCELLED = 2;
+    const STATUS_WORKING = 3;
+    const STATUS_DONE = 4;
+    const STATUS_FAILED = 5;
 
-    const ACTION_START = 'start'; //заказчик запускает задачу
-    const ACTION_RESPONSE = 'response'; //Откликнуться на задание
-    const ACTION_CANCEL = 'cancel';//Отменить
-    const ACTION_REFUSAL = 'refusal'; //Отказаться от задания
-    const ACTION_COMPLETION = 'completion'; //Завершить задание, выполнено
-    const ACTION_ACCEPT = 'accept'; //Выполняется после нажатия заказчиком кнопки «Принять»? п.2.8 из ТЗ
+    const ACTION_START = 'start'; //Старт задания п.28 (кнопка принять)
+    const ACTION_CANCEL = 'cancel'; // Отмена задания п.2.7
+    const ACTION_REFUSE = 'refuse'; //Отказаться от задания п.26
+    const ACTION_COMPLETE = 'complete'; //Завершение задания п2.5
+    const ACTION_RESPONSE = 'response'; //Добавление отклика п.2.4
+    const ACTION_REJECT = 'reject'; //Отказать исполнителю (кнопка отказать)
 
     private int $customerId;
     private ?int $executorId;
@@ -37,7 +37,7 @@ class Task
             [
                 self::STATUS_NEW => 'Новое',
                 self::STATUS_CANCELLED => 'Отменено',
-                self::STATUS_ACTIVE => 'В работе',
+                self::STATUS_WORKING => 'В работе',
                 self::STATUS_DONE => 'Выполнено',
                 self::STATUS_FAILED => 'Провалено'
             ];
@@ -51,11 +51,12 @@ class Task
     {
         return
             [
+                self::ACTION_START => 'Принять', // Принят заявку от исполнителя (кнопка приять)
+                self::ACTION_CANCEL => 'Отмена задания',
                 self::ACTION_RESPONSE => 'Откликнуться на задание',
-                self::ACTION_CANCEL => 'Отменить',
-                self::ACTION_REFUSAL => 'Отказаться от задания',
-                self::ACTION_COMPLETION => 'Завершить задание, выполнено',
-                self::ACTION_ACCEPT => 'Принять'
+                self::ACTION_REFUSE => 'Отказаться от задания',
+                self::ACTION_COMPLETE => 'Завершить задание, выполнено',
+                self::ACTION_REJECT => 'Отказать' //Отказать исполнителю (кнопка отказать)
             ];
     }
 
@@ -67,36 +68,36 @@ class Task
     public function getStatusAfterAction(string $availableActions): int
     {
         return match ($availableActions) {
-            self::ACTION_COMPLETION => self::STATUS_DONE, //2.5 Завершение задания, п. из ТЗ
-            self::ACTION_REFUSAL => self::STATUS_FAILED, //2.6 Отказ от задания, п. из ТЗ
+            self::ACTION_COMPLETE => self::STATUS_DONE, //2.5 Завершение задания, п. из ТЗ
+            self::ACTION_REFUSE => self::STATUS_FAILED, //2.6 Отказ от задания, п. из ТЗ
             self::ACTION_CANCEL => self::STATUS_CANCELLED, //2.7 Отмена задания, п. из ТЗ
-            self::ACTION_ACCEPT => self::STATUS_ACTIVE, //2.8 Старт задания, п. из ТЗ
-            default => self::STATUS_NEW,
+            self::ACTION_START => self::STATUS_WORKING, //2.8 Старт задания, п. из ТЗ
+            default => self::STATUS_NEW
         };
     }
 
     /**
-     * Функция определяет список доступных действий в текущем статусе;
+     * * Функция определяет список доступных действий в текущем статусе;
      * @param int $currentUserId
-     * @return string|null
+     * @return array
      */
-    public function getAvailableActions(int $currentUserId): ?string
+    public function getAvailableActions(int $currentUserId): array
     {
         switch ($this->status) {
             case self::STATUS_NEW:
                 if ($currentUserId !== $this->customerId) {
-                    return self::ACTION_RESPONSE;
+                    return [self::ACTION_RESPONSE];
                 }
-                return self::ACTION_CANCEL;
+                return [self::ACTION_START, self::ACTION_CANCEL];
 
-            case self::STATUS_ACTIVE:
+            case self::STATUS_WORKING:
                 if ($currentUserId !== $this->customerId) {
-                    return self::ACTION_REFUSAL;
+                    return [self::ACTION_REFUSE];
                 }
-                return self::ACTION_COMPLETION;
+                return [self::ACTION_COMPLETE];
 
             default:
-                return null;
+                return [];
         }
     }
 
