@@ -1,50 +1,53 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use tf\models\Task;
 
 
 class TaskTest extends TestCase
 {
 
-    private object $testTask;
-
-    protected function setUp(): void
-    {
-        $this->testTask = new \tf\models\Task(1, 1);
-    }
-
     /**
-     *
      * @dataProvider providerGetStatusAfterAction
      */
     public function testGetStatusAfterAction($action, $status)
     {
-        $this->assertSame($status, $this->testTask->getStatusAfterAction($action));
+        $testStatus = new Task(Task::STATUS_NEW, 123);
+        $this->assertSame($status, $testStatus->getStatusAfterAction($action));
     }
 
     public function providerGetStatusAfterAction(): array
     {
         return [
-            ['completion', 4],
-            ['refusal', 5],
-            ['cancel', 2],
-            ['accept', 3],
-            ['', 1]
+            [Task::ACTION_COMPLETION, Task::STATUS_DONE],
+            [Task::ACTION_REFUSAL, Task::STATUS_FAILED],
+            [Task::ACTION_CANCEL, Task::STATUS_CANCELLED],
+            [Task::ACTION_ACCEPT, Task::STATUS_ACTIVE],
+            ['', Task::STATUS_NEW]
 
         ];
     }
 
     /**
-     *
      * @dataProvider providerGetAvailableActions
+     * @param $action
+     * @param $currentUserId
+     * @return void
      */
-    public function testGetAvailableActions($action)
+    public function testGetAvailableActions($action, $currentUserId)
     {
-        $this->assertSame($action, $this->testTask->getAvailableActions(1));
+        $testAction = new Task(Task::STATUS_NEW, 123, 456);
+        $this->assertSame($action, $testAction->getAvailableActions($currentUserId));
     }
 
-    public function providerGetAvailableActions()
+    public function providerGetAvailableActions(): array
     {
+        return [
+            [Task::ACTION_CANCEL, 123],
+            [Task::ACTION_RESPONSE, 456],
+            [Task::ACTION_COMPLETION, 123],
+            [Task::ACTION_REFUSAL, 456]
+        ];
     }
+
 }
-
