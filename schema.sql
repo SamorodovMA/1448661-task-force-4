@@ -120,7 +120,7 @@ CREATE TABLE response
   `date_creation` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `task_id`       INT UNSIGNED NOT NULL,
   `executor_id`       INT UNSIGNED NOT NULL,
-  `price`         INT UNSIGNED NOT NULL,
+  `price`         INT UNSIGNED ,
   `comment`       VARCHAR(255),
   PRIMARY KEY (id)
 ) ENGINE = InnoDB;
