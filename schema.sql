@@ -44,7 +44,7 @@ CREATE TABLE `feedback`
   `customer_id`   INT UNSIGNED     NOT NULL,
   `task_id`       INT UNSIGNED     NOT NULL,
   `date_creation` DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `description`   TEXT,
+  `description`   TEXT NOT NULL,
   `rating`        TINYINT UNSIGNED NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE = InnoDB;
@@ -119,8 +119,8 @@ CREATE TABLE response
   `id`            INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `date_creation` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `task_id`       INT UNSIGNED NOT NULL,
-  `executor_id`       INT UNSIGNED NOT NULL,
-  `price`         INT UNSIGNED ,
+  `executor_id`   INT UNSIGNED NOT NULL,
+  `price`         INT UNSIGNED,
   `comment`       VARCHAR(255),
   PRIMARY KEY (id)
 ) ENGINE = InnoDB;
