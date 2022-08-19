@@ -1,0 +1,16 @@
+{
+  "name": "user/1448661-task-force-4",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Mikhail Samorodov",
+      "email": "masamorodov@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "tf\\": "src/"
+    }
+  },
+  "require": {}
+}

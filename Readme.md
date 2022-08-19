@@ -1,7 +1,7 @@
 # Личный проект «TaskForce»
 
 * Студент: [Михаил Самородов](https://up.htmlacademy.ru/yii/4/user/1448661).
-* Наставник: [Даниил Стерликов](https://htmlacademy.ru/profile/id1588317).
+* Наставник: [Сергей Парфенов](https://htmlacademy.ru/profile/id926645).
 
 ---
 
