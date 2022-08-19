@@ -68,7 +68,7 @@ CREATE TABLE task_files
 -- Таблица users
 CREATE TABLE `users`
 (
-  id                 INT UNSIGNED     NOT NULL AUTO_INCREMENT,
+  `id`               INT UNSIGNED     NOT NULL AUTO_INCREMENT,
   `name`             VARCHAR(255)     NOT NULL,
   `email`            VARCHAR(128)     NOT NULL,
   `password`         CHAR(64)         NOT NULL,
@@ -101,8 +101,8 @@ CREATE TABLE `tasks`
   `status`           TINYINT UNSIGNED NOT NULL,
   `budget`           INT UNSIGNED     NOT NULL,
   `period_execution` DATETIME         NOT NULL,
-  `city_id`          INT UNSIGNED     NOT NULL,
-  `location_id`      INT UNSIGNED     NOT NULL,
+  `city_id`          INT UNSIGNED,
+  `location_id`      INT UNSIGNED,
   PRIMARY KEY (id)
 ) ENGINE = InnoDB;
 
