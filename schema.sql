@@ -88,7 +88,6 @@ CREATE TABLE `users`
   UNIQUE (`email`)
 ) ENGINE = InnoDB;
 
-
 -- Таблица tasks
 CREATE TABLE `tasks`
 (
@@ -107,12 +106,6 @@ CREATE TABLE `tasks`
   PRIMARY KEY (id)
 ) ENGINE = InnoDB;
 
-ALTER TABLE users
-  ADD FOREIGN KEY (category_id)
-    REFERENCES categories (id),
-  ADD FOREIGN KEY (avatar_file_id)
-    references files (id);
-
 -- Таблица response
 CREATE TABLE response
 (
@@ -125,7 +118,11 @@ CREATE TABLE response
   PRIMARY KEY (id)
 ) ENGINE = InnoDB;
 
-
+ALTER TABLE users
+  ADD FOREIGN KEY (category_id)
+    REFERENCES categories (id),
+  ADD FOREIGN KEY (avatar_file_id)
+    references files (id);
 
 ALTER TABLE tasks
   ADD FOREIGN KEY (category_id)
