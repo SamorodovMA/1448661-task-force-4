@@ -106,12 +106,11 @@ class Task
 
     /**
      * Функция возвращает текущий статус задания;
-     * @param string $currentStatus
-     * @return string
+     * @return int
      */
-public function getCurrentStatus(string $currentStatus):string
+public function getCurrentStatus():int
 {
-    return $currentStatus;
+    return $this->status;
 }
 
 //5.1 Хранить ID заказчика
