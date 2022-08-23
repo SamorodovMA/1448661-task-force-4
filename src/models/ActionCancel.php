@@ -10,7 +10,7 @@ class ActionCancel extends AbstractAction
         return 'Отмена задания';
     }
 
-    public static function getActionInnerActionName(Task $task, $currentUserId)
+    public static function getActionInnerActionName(Task $task, $currentUserId): bool
     {
         if ($task->getCurrentStatus() === Task::STATUS_NEW && $task->getCustomerId() === $currentUserId ) {
             return true;
