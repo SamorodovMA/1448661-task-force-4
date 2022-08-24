@@ -4,6 +4,8 @@ namespace tf\models;
 
 class ActionResponse extends AbstractAction
 {
+    protected string $name = 'Откликнуться на задание';
+    protected string $code = 'ACTION_RESPONSE';
 
     public static function checkUserRoles(Task $task, $currentUserId): bool
     {

@@ -4,6 +4,8 @@ namespace tf\models;
 
 class ActionRefuse extends AbstractAction
 {
+    protected string $name = 'Отказаться от задания';
+    protected string $code = 'ACTION_REFUSE';
 
     public static function checkUserRoles(Task $task, $currentUserId): bool
     {

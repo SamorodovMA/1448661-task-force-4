@@ -4,6 +4,8 @@ namespace tf\models;
 
 class ActionComplete extends AbstractAction
 {
+    protected string $name = 'Завершить задание';
+    protected string $code = 'ACTION_COMPLETE';
 
     public static function checkUserRoles(Task $task, $currentUserId): bool
     {

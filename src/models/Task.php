@@ -83,21 +83,20 @@ class Task
      */
     public function getAvailableActions(int $currentUserId): array
     {
-       switch ($this->status) {
+        switch ($this->status) {
             case self::STATUS_NEW:
                 if ($currentUserId === $this->customerId) {
-                    return [self::ACTION_START, self::ACTION_CANCEL];
-
+                    return [new ActionStart(), new ActionCancel()];
                 } elseif ($currentUserId === $this->executorId) {
-                    return [self::ACTION_RESPONSE];
+                    return [new ActionResponse()];
                 }
                 break;
 
-           case self::STATUS_WORKING:
+            case self::STATUS_WORKING:
                 if ($currentUserId === $this->customerId) {
-                    return [self::ACTION_COMPLETE];
+                    return [new ActionComplete()];
                 } elseif ($currentUserId === $this->executorId) {
-                    return [self::ACTION_REFUSE];
+                    return [new ActionRefuse()];
                 }
                 break;
         }

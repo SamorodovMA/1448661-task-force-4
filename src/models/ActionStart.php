@@ -4,6 +4,8 @@ namespace tf\models;
 
 class ActionStart extends AbstractAction
 {
+    protected string $name = 'Принять';
+    protected string $code = 'ACTION_START';
 
     public static function checkUserRoles(Task $task, $currentUserId): bool
     {
