@@ -13,7 +13,7 @@ class TaskTest extends TestCase
     public function testGetStatusAfterAction($action, $status)
     {
         $testStatus = new Task(Task::STATUS_NEW, 123);
-        $this->assertEquals($status, $testStatus->getStatusAfterAction($action));
+        $this->assertSame($status, $testStatus->getStatusAfterAction($action));
     }
 
     public function providerGetStatusAfterAction(): array
@@ -36,17 +36,17 @@ class TaskTest extends TestCase
     public function testGetAvailableActions($status, $action, $currentUserId)
     {
         $testAction = new Task($status, 123, 456);
-        $this->assertSame($action, $testAction->getAvailableActions($currentUserId));
+        $this->assertEquals($action, $testAction->getAvailableActions($currentUserId));
     }
 
     public function providerGetAvailableActions(): array
     {
         return [
             [Task::STATUS_NEW, [new \tf\models\ActionStart()], 123],
-         /*   [Task::STATUS_NEW, [new \tf\models\ActionCancel()], 123],
+            [Task::STATUS_NEW, [new \tf\models\ActionCancel()], 123],
             [Task::STATUS_NEW, [new \tf\models\ActionResponse()], 456],
             [Task::STATUS_WORKING, [new \tf\models\ActionComplete()], 123],
-            [Task::STATUS_WORKING, [new \tf\models\ActionRefuse()], 456]*/
+            [Task::STATUS_WORKING, [new \tf\models\ActionRefuse()], 456]
         ];
     }
 }
