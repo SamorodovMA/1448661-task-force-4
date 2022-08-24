@@ -4,16 +4,24 @@ namespace tf\models;
 
 abstract class AbstractAction
 {
-     public static function getActionName ($actionName) {
-        return $actionName;
+private string $actionName;
+private  string $innerActionName;
+public function __construct(string $actionName, string $innerActionName)
+{
+    $this->actionName = $actionName;
+    $this->innerActionName = $innerActionName;
+}
+
+    public function getActionName ():string
+     {
+        return $this->actionName;
     }
 
-     public static function getActionInnerActionName ($innerActionName) {
-         return $innerActionName;
+     public function getActionInnerActionName ():string
+     {
+        return $this->innerActionName;
      }
 
-    abstract public static function checkUserRoles (Task $task, $currentUserId);
-
-
+    abstract public static function checkUserRoles (Task $task, $currentUserId): bool;
 
 }
