@@ -42,8 +42,7 @@ class TaskTest extends TestCase
     public function providerGetAvailableActions(): array
     {
         return [
-            [Task::STATUS_NEW, [new \tf\models\ActionStart()], 123],
-            [Task::STATUS_NEW, [new \tf\models\ActionCancel()], 123],
+            [Task::STATUS_NEW, [new \tf\models\ActionStart(),new \tf\models\ActionCancel()], 123],
             [Task::STATUS_NEW, [new \tf\models\ActionResponse()], 456],
             [Task::STATUS_WORKING, [new \tf\models\ActionComplete()], 123],
             [Task::STATUS_WORKING, [new \tf\models\ActionRefuse()], 456]
