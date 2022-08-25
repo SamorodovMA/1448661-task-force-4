@@ -83,21 +83,20 @@ class Task
      */
     public function getAvailableActions(int $currentUserId): array
     {
-       switch ($this->status) {
+        switch ($this->status) {
             case self::STATUS_NEW:
                 if ($currentUserId === $this->customerId) {
-                    return [self::ACTION_START, self::ACTION_CANCEL];
-
+                    return [new ActionStart(), new ActionCancel()];
                 } elseif ($currentUserId === $this->executorId) {
-                    return [self::ACTION_RESPONSE];
+                    return [new ActionResponse()];
                 }
                 break;
 
-           case self::STATUS_WORKING:
+            case self::STATUS_WORKING:
                 if ($currentUserId === $this->customerId) {
-                    return [self::ACTION_COMPLETE];
+                    return [new ActionComplete()];
                 } elseif ($currentUserId === $this->executorId) {
-                    return [self::ACTION_REFUSE];
+                    return [new ActionRefuse()];
                 }
                 break;
         }
@@ -106,12 +105,11 @@ class Task
 
     /**
      * Функция возвращает текущий статус задания;
-     * @param string $currentStatus
-     * @return string
+     * @return int
      */
-public function getCurrentStatus(string $currentStatus):string
+public function getCurrentStatus():int
 {
-    return $currentStatus;
+    return $this->status;
 }
 
 //5.1 Хранить ID заказчика
