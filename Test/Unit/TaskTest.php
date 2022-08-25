@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use tf\models\exception\TaskException;
 use tf\models\Task;
 
 
@@ -32,6 +33,7 @@ class TaskTest extends TestCase
      * @param $action
      * @param $currentUserId
      * @return void
+     * @throws TaskException
      */
     public function testGetAvailableActions($status, $action, $currentUserId)
     {

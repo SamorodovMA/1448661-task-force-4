@@ -1,6 +1,8 @@
 <?php
 namespace tf\models;
 
+use tf\models\exception\TaskException;
+
 class Task
 {
     const STATUS_NEW = 1;
@@ -20,8 +22,23 @@ class Task
     private ?int $executorId;
     private int $status;
 
+
+    /**
+     * @param int $status
+     * @param int $customerId
+     * @param int|null $executorId
+     * @throws TaskException
+     */
     public function __construct(int $status, int $customerId, ?int $executorId = null)
     {
+        if ($status === self::STATUS_NEW && $executorId !== null) {
+            throw new TaskException('Первая проверка У задачи не должно быть исполнителя!');
+        }
+        if (
+            ($status === self::STATUS_WORKING || $status === self::STATUS_FAILED || $status === self::STATUS_DONE) && $executorId === null) {
+            throw new TaskException('Вторая проверка У данного статуса должен быть исполнитель!');
+        }
+
         $this->customerId = $customerId;
         $this->executorId = $executorId;
         $this->status = $status;
@@ -113,6 +130,7 @@ public function getCurrentStatus():int
 }
 
 //5.1 Хранить ID заказчика
+
     /**
      * Функция возвращает ID заказчика
      * @return int
@@ -123,6 +141,7 @@ public function getCurrentStatus():int
     }
 
 //5.2 Хранить ID исполнителя
+
     /**
      * Функция возвращает ID исполнителя
      * @return int
