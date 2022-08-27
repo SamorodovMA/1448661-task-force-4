@@ -16,7 +16,6 @@ class Task
     const ACTION_REFUSE = 'refuse'; //Отказаться от задания п.26
     const ACTION_COMPLETE = 'complete'; //Завершение задания п2.5
     const ACTION_RESPONSE = 'response'; //Добавление отклика п.2.4
-    const ACTION_REJECT = 'reject'; //Отказать исполнителю (кнопка отказать)
 
     private int $customerId;
     private ?int $executorId;
@@ -32,11 +31,11 @@ class Task
     public function __construct(int $status, int $customerId, ?int $executorId = null)
     {
         if ($status === self::STATUS_NEW && $executorId !== null) {
-            throw new TaskException('Первая проверка У задачи не должно быть исполнителя!');
+            throw new TaskException('В статусе "Новая" не должно быть исполнителя!');
         }
-        if (
-            ($status === self::STATUS_WORKING || $status === self::STATUS_FAILED || $status === self::STATUS_DONE) && $executorId === null) {
-            throw new TaskException('Вторая проверка У данного статуса должен быть исполнитель!');
+
+        if (in_array($status, $this->getStatusesForExecutor(), true) && $executorId === null) {
+            throw new TaskException('В статусах "В работе, Провалено, Выполнено" должен быть исполнитель!');
         }
 
         $this->customerId = $customerId;
@@ -45,10 +44,24 @@ class Task
     }
 
     /**
+     * Функция возвращает статусы для исполнителя
+     * @return array
+     */
+    public function getStatusesForExecutor(): array
+    {
+        return
+            [
+                self::STATUS_WORKING,
+                self::STATUS_DONE,
+                self::STATUS_FAILED
+            ];
+    }
+
+    /**
      * Функция возвращает карту статусов
      * @return array
      */
-    public static function getStatusesList(): array
+    public function getStatusesList(): array
     {
         return
             [
@@ -73,7 +86,6 @@ class Task
                 self::ACTION_RESPONSE => 'Откликнуться на задание',
                 self::ACTION_REFUSE => 'Отказаться от задания',
                 self::ACTION_COMPLETE => 'Завершить задание, выполнено',
-                self::ACTION_REJECT => 'Отказать' //Отказать исполнителю (кнопка отказать)
             ];
     }
 
@@ -81,15 +93,18 @@ class Task
      * * Функция возвращает имя статуса, в который перейдёт задание после выполнения конкретного действия;
      * @param string $availableActions
      * @return int
+     * @throws TaskException
      */
     public function getStatusAfterAction(string $availableActions): int
     {
+        if (!array_key_exists($availableActions, $this->getActionsList())) {
+            throw new TaskException('Нет такого действия');
+        }
         return match ($availableActions) {
             self::ACTION_COMPLETE => self::STATUS_DONE, //2.5 Завершение задания, п. из ТЗ
             self::ACTION_REFUSE => self::STATUS_FAILED, //2.6 Отказ от задания, п. из ТЗ
             self::ACTION_CANCEL => self::STATUS_CANCELLED, //2.7 Отмена задания, п. из ТЗ
             self::ACTION_START => self::STATUS_WORKING, //2.8 Старт задания, п. из ТЗ
-            default => self::STATUS_NEW
         };
     }
 
