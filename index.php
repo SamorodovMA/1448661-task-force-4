@@ -15,18 +15,27 @@ try {
 }
 
 try {
-    $dir = $_SERVER['DOCUMENT_ROOT'] . '/' . 'data' . '/' . 'cities' . '.sql';
-    $path = __DIR__ . '/data/cities.csv';
+    $fileNameCat = __DIR__ . './data/categories.csv';
+    $newFileDirCat  = __DIR__ . './data/schema-sql/categories.sql';
 
-    $test = new DataConverter($path, $dir, 'cities');
-  $data = $test->csvToSql($path);
-
-  $test->createSqFile($dir, $data);
-
+    $categories = new DataConverter($fileNameCat, $newFileDirCat, 'categories');
+    $data = $categories->csvToSql();
+    $categories->createSqFile();
 } catch (TaskException $e) {
     echo $e->getMessage();
 }
 
+
+try {
+    $fileNameCities = __DIR__ . '/data/cities.csv';
+    $newFileDirCities = __DIR__ . '/data/schema-sql/cities.sql';
+
+    $cities = new DataConverter($fileNameCities, $newFileDirCities, 'cities');
+    $data = $cities->csvToSql();
+    $cities->createSqFile();
+} catch (TaskException $e) {
+    echo $e->getMessage();
+}
 
 
 
