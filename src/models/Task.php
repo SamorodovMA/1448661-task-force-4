@@ -1,6 +1,8 @@
 <?php
 namespace tf\models;
 
+use tf\models\exception\ActionException;
+use tf\models\exception\StatusException;
 use tf\models\exception\TaskException;
 
 class Task
@@ -31,11 +33,11 @@ class Task
     public function __construct(int $status, int $customerId, ?int $executorId = null)
     {
         if ($status === self::STATUS_NEW && $executorId !== null) {
-            throw new TaskException('В статусе "Новая" не должно быть исполнителя!');
+            throw new StatusException();
         }
 
         if (in_array($status, $this->getStatusesForExecutor(), true) && $executorId === null) {
-            throw new TaskException('В статусах "В работе, Провалено, Выполнено" должен быть исполнитель!');
+            throw new StatusException();
         }
 
         $this->customerId = $customerId;
@@ -98,7 +100,7 @@ class Task
     public function getStatusAfterAction(string $availableActions): int
     {
         if (!array_key_exists($availableActions, $this->getActionsList())) {
-            throw new TaskException('Нет такого действия');
+            throw new ActionException();
         }
         return match ($availableActions) {
             self::ACTION_COMPLETE => self::STATUS_DONE, //2.5 Завершение задания, п. из ТЗ

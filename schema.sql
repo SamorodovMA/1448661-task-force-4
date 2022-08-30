@@ -1,7 +1,7 @@
 --
 -- SQL-код для создания новой базы данных.
 --
-CREATE DATABASE taskforсe
+CREATE DATABASE taskforse
   DEFAULT CHARACTER SET utf8mb4
   DEFAULT COLLATE utf8mb4_unicode_ci;
 USE taskforсe;
@@ -11,7 +11,8 @@ USE taskforсe;
 CREATE TABLE `categories`
 (
   `id`   INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(128) NOT NULL,
+  `icon` VARCHAR(20),
   PRIMARY KEY (`id`),
   UNIQUE (`name`)
 ) ENGINE = InnoDB;
@@ -22,7 +23,7 @@ CREATE TABLE `cities`
   `id`         INT UNSIGNED   NOT NULL AUTO_INCREMENT,
   `name`       VARCHAR(255)   NOT NULL,
   `latitude`   DECIMAL(11, 8) NOT NULL,
-  `longtitude` DECIMAL(11, 8) NOT NULL,
+  `longitude` DECIMAL(11, 8) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE (`name`)
 ) ENGINE = InnoDB;
@@ -33,7 +34,7 @@ CREATE TABLE `locations`
   `id`         INT UNSIGNED   NOT NULL AUTO_INCREMENT,
   `city_id`    INT UNSIGNED   NOT NULL,
   `latitude`   DECIMAL(11, 8) NOT NULL,
-  `longtitude` DECIMAL(11, 8) NOT NULL,
+  `longitude` DECIMAL(11, 8) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
