@@ -120,20 +120,22 @@ CREATE TABLE response
 ) ENGINE = InnoDB;
 
 ALTER TABLE users
-  ADD FOREIGN KEY (category_id)
-    REFERENCES categories (id),
   ADD FOREIGN KEY (avatar_file_id)
     references files (id);
 
 ALTER TABLE tasks
   ADD FOREIGN KEY (category_id)
     REFERENCES categories (id),
+
   ADD FOREIGN KEY (customer_id)
     REFERENCES users (id),
+
   ADD FOREIGN KEY (executor_id)
     REFERENCES users (id),
+
   ADD FOREIGN KEY (city_id)
     REFERENCES cities (id),
+
   ADD FOREIGN KEY (location_id)
     REFERENCES locations (id);
 
@@ -145,17 +147,20 @@ ALTER TABLE locations
 ALTER TABLE feedback
   ADD FOREIGN KEY (customer_id)
     REFERENCES users (id),
+
   ADD FOREIGN KEY (task_id)
     REFERENCES tasks (id);
-
+--------------------------------
 ALTER TABLE task_files
   ADD FOREIGN KEY (task_id)
     REFERENCES tasks (id),
+
   ADD FOREIGN KEY (file_id)
     REFERENCES files (id);
-
+--------------------------------------
 ALTER TABLE response
   ADD FOREIGN KEY (task_id)
     REFERENCES tasks (id),
+
   ADD FOREIGN KEY (`executor_id`)
     REFERENCES users (id);

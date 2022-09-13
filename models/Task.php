@@ -2,47 +2,25 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
-/**
- * This is the model class for table "tasks".
- *
- * @property int $id
- * @property string $name
- * @property string|null $description
- * @property string $date_creation
- * @property int $category_id
- * @property int $customer_id
- * @property int|null $executor_id
- * @property int $status
- * @property int $budget
- * @property string $period_execution
- * @property int $task_statuses_id
- * @property int $city_id
- * @property int $location_id
- *
- * @property Category $category
- * @property City $city
- * @property User $customer
- * @property User $executor
- * @property Feedback[] $feedbacks
- * @property Location $location
- * @property Response[] $responses
- * @property TaskFile[] $taskFiles
- */
-class Task extends \yii\db\ActiveRecord
+
+
+class Task extends ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+    const STATUS_NEW = 1;
+    const STATUS_CANCELLED = 2;
+    const STATUS_WORKING = 3;
+    const STATUS_DONE = 4;
+    const STATUS_FAILED = 5;
+
     public static function tableName()
     {
         return 'tasks';
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function rules()
     {
         return [
@@ -59,105 +37,70 @@ class Task extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function attributeLabels()
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'description' => 'Description',
-            'date_creation' => 'Date Creation',
-            'category_id' => 'Category ID',
-            'customer_id' => 'Customer ID',
-            'executor_id' => 'Executor ID',
-            'status' => 'Status',
-            'budget' => 'Budget',
-            'period_execution' => 'Period Execution',
-            'task_statuses_id' => 'Task Statuses ID',
-            'city_id' => 'City ID',
-            'location_id' => 'Location ID',
+            'name' => 'Название',
+            'description' => 'Описание',
+            'date_creation' => 'Дата создания',
+            'category_id' => 'Категория',
+            'customer_id' => 'Заказчик',
+            'executor_id' => 'Исполнитель',
+            'status' => 'Статус',
+            'budget' => 'Цена',
+            'period_execution' => 'Период выполнения',
+            'city_id' => 'Город',
+            'location_id' => 'Локация',
         ];
     }
 
-    /**
-     * Gets query for [[Category]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategory()
+
+    public function getCategory(): ActiveQuery
     {
         return $this->hasOne(Category::class, ['id' => 'category_id']);
     }
 
-    /**
-     * Gets query for [[City]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCity()
+
+    public function getCity(): ActiveQuery
     {
         return $this->hasOne(City::class, ['id' => 'city_id']);
     }
 
-    /**
-     * Gets query for [[Customer]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCustomer()
+
+    public function getCustomer(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'customer_id']);
     }
 
-    /**
-     * Gets query for [[Executor]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getExecutor()
+
+    public function getExecutor(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'executor_id']);
     }
 
-    /**
-     * Gets query for [[Feedbacks]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFeedbacks()
+
+    public function getFeedbacks(): ActiveQuery
     {
-        return $this->hasMany(Feedback::class, ['task_id' => 'id']);
+        return $this->hasMany(Feedback::class, ['task_id' => 'id'])->inverseOf('task');
     }
 
-    /**
-     * Gets query for [[Location]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getLocation()
+
+    public function getLocation(): ActiveQuery
     {
         return $this->hasOne(Location::class, ['id' => 'location_id']);
     }
 
-    /**
-     * Gets query for [[Responses]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResponses()
+
+    public function getResponses(): ActiveQuery
     {
-        return $this->hasMany(Response::class, ['task_id' => 'id']);
+        return $this->hasMany(Response::class, ['task_id' => 'id'])->inverseOf('task');
     }
 
-    /**
-     * Gets query for [[TaskFiles]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTaskFiles()
+
+    public function getTaskFiles(): ActiveQuery
     {
-        return $this->hasMany(TaskFile::class, ['task_id' => 'id']);
+        return $this->hasMany(TaskFile::class, ['task_id' => 'id'])->inverseOf('task');
     }
 }

@@ -1,10 +1,11 @@
 <?php
 
 /** @var yii\web\View $this
- * @var array $tasks
+ * @var \app\models\Task[] $tasks
  */
 
 $this->title = 'tasks';
+
 ?>
 
 <div class="left-column">
@@ -12,17 +13,16 @@ $this->title = 'tasks';
     <?php foreach ($tasks as $task): ?>
     <div class="task-card">
         <div class="header-task">
-            <a  href="#" class="link link--block link--big"><?=$task['name']?></a>
-            <p class="price price--task"><?=$task['budget']?> ₽</p>
+            <a  href="#" class="link link--block link--big"><?=$task->name?></a>
+            <p class="price price--task"><?=$task->budget?> ₽</p>
         </div>
-        <p class="info-text"><span class="current-time">4 часа </span>назад</p>
-        <p class="task-text"><?=$task['description']?></p>
+        <p class="info-text"><span class="current-time"><?= Yii::$app->formatter->format($task['date_creation'], 'relativeTime') ?></span></p>
+        <p class="task-text">Описание</p>
         <div class="footer-task">
-            <p class="info-text town-text"><?=$task['city']?></p>
-            <p class="info-text category-text">Переводы</p>
+            <p class="info-text town-text"><?=$task->city->name?></p>
+            <p class="info-text category-text"><?=$task->category->name?></p>
             <a href="#" class="button button--black">Смотреть Задание</a>
         </div>
-
     </div>
     <?php endforeach; ?>
     <div class="pagination-wrapper">
