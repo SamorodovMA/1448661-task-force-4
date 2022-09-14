@@ -18,14 +18,6 @@ $this->title = 'tasks';
         return $this->render('_tasks', ['model' => $model]);
     },
 
-    'pager' => [
-        'firstPageLabel' => 'Первая',
-        'lastPageLabel' => 'Последняя',
-        'nextPageLabel' => 'Следующая',
-        'prevPageLabel' => 'Предыдущая',
-        'maxButtonCount' => 5,
-    ],
-
 ]);
 ?>
 
