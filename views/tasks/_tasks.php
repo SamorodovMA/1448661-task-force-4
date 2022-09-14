@@ -24,24 +24,4 @@ use yii\helpers\HtmlPurifier;
                 <a href="#" class="button button--black">Смотреть Задание</a>
             </div>
         </div>
-
-   <!-- <div class="pagination-wrapper">
-        <ul class="pagination-list">
-            <li class="pagination-item mark">
-                <a href="#" class="link link--page"></a>
-            </li>
-            <li class="pagination-item">
-                <a href="#" class="link link--page">1</a>
-            </li>
-            <li class="pagination-item pagination-item--active">
-                <a href="#" class="link link--page">2</a>
-            </li>
-            <li class="pagination-item">
-                <a href="#" class="link link--page">3</a>
-            </li>
-            <li class="pagination-item mark">
-                <a href="#" class="link link--page"></a>
-            </li>
-        </ul>
-    </div>-->
 </div>

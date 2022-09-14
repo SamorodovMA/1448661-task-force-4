@@ -10,16 +10,34 @@ $this->title = 'tasks';
 
 ?>
 
-<?= ListView::widget([
-    'dataProvider' => $dataProvider,
+    <div class="pagination-wrapper">
+        <?= ListView::widget([
+            'dataProvider' => $dataProvider,
+             'itemView' => '_tasks',
+              'summary'=>'',
+            'pager' => [
+                'prevPageLabel' => '',
+                'nextPageLabel' => '',
+                'maxButtonCount' => 3,
 
 
-    'itemView' => function ($model, $key, $index, $widget) {
-        return $this->render('_tasks', ['model' => $model]);
-    },
+                'options' => [
+                    'tag' => 'ul',
+                    'class' => 'pagination-list',
+                ],
 
-]);
-?>
+
+                'linkOptions' => ['class' => 'link link--page'],
+                'activePageCssClass' => 'pagination-item pagination-item--active',
+                'pageCssClass' => 'pagination-item',
+
+
+                'prevPageCssClass' => 'pagination-item mark',
+                'nextPageCssClass' => 'pagination-item mark',
+            ],
+        ]);
+        ?>
+    </div>
 
 <div class="right-column">
     <div class="right-card black">
@@ -59,3 +77,6 @@ $this->title = 'tasks';
         </div>
     </div>
 </div>
+
+
+
