@@ -1,50 +1,34 @@
 <?php
 
 /** @var yii\web\View $this
- * @var \app\models\Task[] $tasks
+ * @var object $dataProvider
  */
+
+use yii\widgets\ListView;
 
 $this->title = 'tasks';
 
 ?>
 
-<div class="left-column">
-    <h3 class="head-main head-task">Новые задания</h3>
-    <?php foreach ($tasks as $task): ?>
-    <div class="task-card">
-        <div class="header-task">
-            <a  href="#" class="link link--block link--big"><?=$task->name?></a>
-            <p class="price price--task"><?=$task->budget?> ₽</p>
-        </div>
-        <p class="info-text"><span class="current-time"><?= Yii::$app->formatter->format($task['date_creation'], 'relativeTime') ?></span></p>
-        <p class="task-text">Описание</p>
-        <div class="footer-task">
-            <p class="info-text town-text"><?=$task->city->name?></p>
-            <p class="info-text category-text"><?=$task->category->name?></p>
-            <a href="#" class="button button--black">Смотреть Задание</a>
-        </div>
-    </div>
-    <?php endforeach; ?>
-    <div class="pagination-wrapper">
-        <ul class="pagination-list">
-            <li class="pagination-item mark">
-                <a href="#" class="link link--page"></a>
-            </li>
-            <li class="pagination-item">
-                <a href="#" class="link link--page">1</a>
-            </li>
-            <li class="pagination-item pagination-item--active">
-                <a href="#" class="link link--page">2</a>
-            </li>
-            <li class="pagination-item">
-                <a href="#" class="link link--page">3</a>
-            </li>
-            <li class="pagination-item mark">
-                <a href="#" class="link link--page"></a>
-            </li>
-        </ul>
-    </div>
-</div>
+<?= ListView::widget([
+    'dataProvider' => $dataProvider,
+
+
+    'itemView' => function ($model, $key, $index, $widget) {
+        return $this->render('_tasks', ['model' => $model]);
+    },
+
+    'pager' => [
+        'firstPageLabel' => 'Первая',
+        'lastPageLabel' => 'Последняя',
+        'nextPageLabel' => 'Следующая',
+        'prevPageLabel' => 'Предыдущая',
+        'maxButtonCount' => 5,
+    ],
+
+]);
+?>
+
 <div class="right-column">
     <div class="right-card black">
         <div class="search-form">

@@ -8,6 +8,7 @@ use app\widgets\Alert;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 
+
 AppAsset::register($this);
 
 $this->registerCsrfMetaTags();
@@ -77,13 +78,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '@w
 </header>
 
 <main class="main-content container">
-
-    <?php if (!empty($this->params['breadcrumbs'])): ?>
-        <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
-    <?php endif ?>
-    <?= Alert::widget() ?>
     <?= $content ?>
-
 </main>
 
 <?php $this->endBody() ?>

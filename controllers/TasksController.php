@@ -3,7 +3,6 @@ namespace app\controllers;
 
 use app\models\Task;
 use yii\data\ActiveDataProvider;
-use yii\db\Query;
 use yii\web\Controller;
 
 class TasksController extends Controller
@@ -15,10 +14,10 @@ class TasksController extends Controller
             ->with('category')
             ->with('city');
 
-        $provider = new ActiveDataProvider([
+        $dataProvider = new ActiveDataProvider([
             'query' => $tasksQuery,
             'pagination' => [
-                'pageSize' => 10,
+                'pageSize' => 1,
             ],
             'sort' => [
                 'defaultOrder' => [
@@ -27,8 +26,13 @@ class TasksController extends Controller
             ],
         ]);
 
-
-        return $this->render('index', ['tasks'=> $provider->getModels()]);
+        return $this->render(
+            'index',
+            [
+               // 'tasks' => $dataProvider->getModels(),
+                'dataProvider' => $dataProvider
+            ]
+        );
     }
 
 }
