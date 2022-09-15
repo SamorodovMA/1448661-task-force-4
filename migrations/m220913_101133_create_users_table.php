@@ -30,33 +30,6 @@ class m220913_101133_create_users_table extends Migration
             'is_executor' => $this->boolean(),
         ]);
 
-        $this->insert('users', [
-            'name' => 'Ruby Jacobi',
-            'email' => 'donato.nitzsche@runolfsdottir.com',
-            'phone' => '18788294700',
-            'password' => 'U(4)J([q',
-        ]);
-
-        $this->insert('users', [
-            'name' => 'Albert Champlin',
-            'email' => 'alyce.moore@kuhic.com',
-            'phone' => '17078614515',
-            'password' => '%jWX\\+7bUEy2F;+b%2lg',
-        ]);
-
-        $this->insert('users', [
-            'name' => 'Bobbie Huel',
-            'email' => 'clare.bartell@kuvalis.com',
-            'phone' => '17869841781',
-            'password' => 'T5Tz`ipdO%D[*wKq/',
-        ]);
-
-        $this->insert('users', [
-            'name' => 'Dr. Bailey Keebler I',
-            'email' => 'johnson.katrina@dare.com',
-            'phone' => '15673869094',
-            'password' => 'ZfBx+uQ[PtiP4',
-        ]);
     }
 
     /**

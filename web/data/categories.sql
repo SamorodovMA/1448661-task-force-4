@@ -6,3 +6,4 @@ INSERT INTO categories (`name`, `icon`) VALUES ('Ремонт квартирны
 INSERT INTO categories (`name`, `icon`) VALUES ('Ремонт техники', 'repair');
 INSERT INTO categories (`name`, `icon`) VALUES ('Красота', 'beauty');
 INSERT INTO categories (`name`, `icon`) VALUES ('Фото', 'photo');
+INSERT INTO categories (`name`, `icon`) VALUES ('Перевод', 'translator');

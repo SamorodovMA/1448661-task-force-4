@@ -19,12 +19,6 @@ class m220913_060642_create_cities_table extends Migration
             'longitude' => $this->decimal(11, 8)->notNull()
         ]);
 
-        $this->insert('cities', [
-            'name' => 'Санкт-Петербург',
-            'latitude' => '59.9386300',
-            'longitude' => '30.3141300',
-        ]);
-
     }
 
     /**

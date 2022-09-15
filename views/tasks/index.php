@@ -20,17 +20,14 @@ $this->title = 'tasks';
                 'nextPageLabel' => '',
                 'maxButtonCount' => 3,
 
-
                 'options' => [
                     'tag' => 'ul',
                     'class' => 'pagination-list',
                 ],
 
-
                 'linkOptions' => ['class' => 'link link--page'],
                 'activePageCssClass' => 'pagination-item pagination-item--active',
                 'pageCssClass' => 'pagination-item',
-
 
                 'prevPageCssClass' => 'pagination-item mark',
                 'nextPageCssClass' => 'pagination-item mark',
