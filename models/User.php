@@ -2,53 +2,22 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
-/**
- * This is the model class for table "users".
- *
- * @property int $id
- * @property string $name
- * @property string $email
- * @property string $password
- * @property string $date_creation
- * @property int $category_id
- * @property int|null $rating
- * @property int|null $popularity
- * @property int|null $avatar_file_id
- * @property string|null $birthday
- * @property string|null $phone
- * @property string|null $telegram
- * @property string|null $bio
- * @property int|null $orders_num
- * @property int $user_status
- * @property int $is_executor
- *
- * @property File $avatarFile
- * @property Category $category
- * @property Feedback[] $feedbacks
- * @property Response[] $responses
- * @property Task[] $tasks
- * @property Task[] $tasks0
- */
-class User extends \yii\db\ActiveRecord
+class User extends ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public static function tableName()
     {
         return 'users';
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function rules()
     {
         return [
-            [['name', 'email', 'password', 'category_id', 'user_status', 'is_executor'], 'required'],
-            [['date_creation', 'birthday'], 'safe'],
+            [['name', 'email', 'password'], 'required'],
+            [['name', 'email', 'phone' ,'password'], 'safe'],
             [['category_id', 'rating', 'popularity', 'avatar_file_id', 'orders_num', 'user_status', 'is_executor'], 'integer'],
             [['bio'], 'string'],
             [['name'], 'string', 'max' => 255],

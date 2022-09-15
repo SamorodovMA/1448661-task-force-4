@@ -2,31 +2,19 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
-/**
- * This is the model class for table "categories".
- *
- * @property int $id
- * @property string $name
- * @property string|null $icon
- *
- * @property Task[] $tasks
- * @property User[] $users
- */
-class Category extends \yii\db\ActiveRecord
+
+class Category extends ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public static function tableName()
     {
         return 'categories';
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function rules()
     {
         return [
@@ -37,35 +25,23 @@ class Category extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function attributeLabels()
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'icon' => 'Icon',
+            'name' => 'Имя',
+            'icon' => 'Иконка',
         ];
     }
 
-    /**
-     * Gets query for [[Tasks]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTasks()
+    public function getTask(): ActiveQuery
     {
-        return $this->hasMany(Task::class, ['category_id' => 'id']);
+        return $this->hasMany(Task::class, ['category_id' => 'id'])->inverseOf('category');
     }
 
-    /**
-     * Gets query for [[Users]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUsers()
+    public function getUser(): ActiveQuery
     {
-        return $this->hasMany(User::class, ['category_id' => 'id']);
+        return $this->hasMany(User::class, ['category_id' => 'id'])->inverseOf('category');
     }
 }
