@@ -6,20 +6,28 @@ use yii\base\Model;
 
 class TaskFilterForm extends Model
 {
-    public $categories = [];
-    public $executor;
+    public $categories;
+    public $withoutResponses;
+    public $remoteWork;
     public $period;
 
     public function attributeLabels()
     {
         return [
             'categories' => 'Категории',
-            'executor' => ' Без исполнителя',
-            'period' => ''
+            'withoutResponses' => 'Без откликов',
+            'remoteWork'=> 'Удалённая работа',
+            'period' => 'Период'
         ];
 
     }
 
+    public function rules()
+    {
+        return [
+            [['categories', 'withoutResponses', 'remoteWork', 'period'], 'safe']
+        ];
+    }
 
 
     public static function getPeriodValue ()

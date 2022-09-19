@@ -40,4 +40,14 @@ class TasksController extends Controller
         );
     }
 
+    public function actionView() {
+
+        return $this->render('view');
+    }
+
+    public function actionUser() {
+
+        return $this->render('user');
+    }
+
 }

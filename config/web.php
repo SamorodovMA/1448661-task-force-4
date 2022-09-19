@@ -10,7 +10,7 @@ $config = [
     'language' => 'ru-RU',
     'name' => 'Taskforce',
     'layout' => 'main',
-    'defaultRoute' => 'tasks/index',
+    'defaultRoute' => 'tasks',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -53,6 +53,8 @@ $config = [
             'enableStrictParsing' => false,
             'rules' => [
                 'tasks' => 'tasks/index',
+                'view' => 'tasks/view',
+                'user' => 'tasks/user',
             ],
         ],
 
