@@ -10,7 +10,7 @@ $config = [
     'language' => 'ru-RU',
     'name' => 'Taskforce',
     'layout' => 'main',
-    'defaultRoute' => 'tasks',
+    'defaultRoute' => 'tasks/index',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -46,14 +46,16 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => false,
             'rules' => [
+                'tasks' => 'tasks/index',
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];
