@@ -47,7 +47,6 @@ $this->title = 'tasks';
         <div class="search-form">
             <?php
             $form = ActiveForm:: begin([
-                'method' => 'get',
                 'fieldConfig' => [
                     'template' => "{input}",
                     'options' => ['tag' => false],
@@ -66,7 +65,7 @@ $this->title = 'tasks';
                                 $index++;
                                 return
                                     "<label class='control-label' for='{$index}'>
-                                 <input type='checkbox' id='{$index}' value='{$value}' >{$label}
+                                 <input type='checkbox' id='{$index}' value='{$value}' >$label
                                  </label>";
                             }
                         ]) ?>
@@ -111,9 +110,10 @@ $this->title = 'tasks';
                     ->dropDownList(TaskFilterForm::getPeriodValue(), [
                     ]); ?>
             </div>
+
             <?=Html::submitInput('Искать', ['class' => 'button button--blue'])?>
-            <?php
-            ActiveForm::end() ?>
+
+            <?php ActiveForm::end() ?>
         </div>
     </div>
 </div>

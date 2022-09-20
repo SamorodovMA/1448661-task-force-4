@@ -4,9 +4,9 @@
  */
 
 use yii\helpers\HtmlPurifier;
+use yii\helpers\Url;
 
 ?>
-
         <div class="task-card">
             <div class="header-task">
                 <a  href="#" class="link link--block link--big"><?=HtmlPurifier::process($model->name) ?></a>
@@ -17,6 +17,6 @@ use yii\helpers\HtmlPurifier;
             <div class="footer-task">
                 <p class="info-text town-text"><?= HtmlPurifier::process($model->city->name) ?></p>
                 <p class="info-text category-text"><?= HtmlPurifier::process($model->category->name) ?></p>
-                <a href="#" class="button button--black">Смотреть Задание</a>
+                <a href="<?=Url::toRoute(['tasks/view/','id' => $model->id])?>" class="button button--black">Смотреть Задание</a>
             </div>
         </div>

@@ -3,9 +3,9 @@
 /** @var yii\web\View $this */
 /** @var string $content */
 
-use yii\bootstrap5\Html;
-
 use app\assets\MainAsset;
+use yii\helpers\Html;
+
 MainAsset::register($this);
 
 $this->registerCsrfMetaTags();
@@ -31,7 +31,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '@w
 <header class="page-header">
     <nav class="main-nav">
         <a href='#' class="header-logo">
-            <img class="logo-image" src="img/logotype.png" width=227 height=60 alt="taskforce">
+            <img class="logo-image" src="/img/logotype.png" width=227 height=60 alt="taskforce">
         </a>
         <div class="nav-wrapper">
             <ul class="nav-list">
@@ -52,7 +52,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '@w
     </nav>
     <div class="user-block">
         <a href="#">
-            <img class="user-photo" src="img/man-glasses.png" width="55" height="55" alt="Аватар">
+            <img class="user-photo" src="/img/man-glasses.png" width="55" height="55" alt="Аватар">
         </a>
         <div class="user-menu">
             <p class="user-name">Василий</p>

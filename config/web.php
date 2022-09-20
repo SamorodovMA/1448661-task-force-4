@@ -10,7 +10,7 @@ $config = [
     'language' => 'ru-RU',
     'name' => 'Taskforce',
     'layout' => 'main',
-    'defaultRoute' => 'tasks',
+   'defaultRoute' => 'tasks',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -19,6 +19,7 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '7lSvZhXuhHgssHrLP5A_byxeqF5LVLle',
+            'baseUrl' => ''
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -52,9 +53,9 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
-                'tasks' => 'tasks/index',
-                'view' => 'tasks/view',
-                'user' => 'tasks/user',
+               // 'tasks' => '/tasks/index',
+                'tasks/view/<id:\d+>' => 'tasks/view',
+                //'user' => 'tasks/user',
             ],
         ],
 

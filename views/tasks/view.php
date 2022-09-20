@@ -18,13 +18,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor 
         <a href="#" class="button button--orange action-btn" data-action="refusal">Отказаться от задания</a>
         <a href="#" class="button button--pink action-btn" data-action="completion">Завершить задание</a>
         <div class="task-map">
-            <img class="map" src="img/map.png"  width="725" height="346" alt="Новый арбат, 23, к. 1">
+            <img class="map" src="/img/map.png"  width="725" height="346" alt="Новый арбат, 23, к. 1">
             <p class="map-address town">Москва</p>
             <p class="map-address">Новый арбат, 23, к. 1</p>
         </div>
         <h4 class="head-regular">Отклики на задание</h4>
         <div class="response-card">
-            <img class="customer-photo" src="img/man-glasses.png" width="146" height="156" alt="Фото заказчиков">
+            <img class="customer-photo" src="/img/man-glasses.png" width="146" height="156" alt="Фото заказчиков">
             <div class="feedback-wrapper">
                 <a href="#" class="link link--block link--big">Астахов Павел</a>
                 <div class="response-wrapper">
@@ -46,7 +46,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor 
             </div>
         </div>
         <div class="response-card">
-            <img class="customer-photo" src="img/man-sweater.png" width="146" height="156" alt="Фото заказчиков">
+            <img class="customer-photo" src="/img/man-sweater.png" width="146" height="156" alt="Фото заказчиков">
             <div class="feedback-wrapper">
                 <a href="#" class="link link--block link--big">Дмитриев Андрей</a>
                 <div class="response-wrapper">

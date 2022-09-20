@@ -2,7 +2,7 @@
     <h3 class="head-main">Астахов Павел</h3>
     <div class="user-card">
         <div class="photo-rate">
-            <img class="card-photo" src="img/man-glasses.png" width="191" height="190" alt="Фото пользователя">
+            <img class="card-photo" src="/img/man-glasses.png" width="191" height="190" alt="Фото пользователя">
             <div class="card-rate">
                 <div class="stars-rating big"><span class="fill-star">&nbsp;</span><span class="fill-star">&nbsp;</span><span class="fill-star">&nbsp;</span><span class="fill-star">&nbsp;</span><span>&nbsp;</span></div>
                 <span class="current-rate">4.23</span>
@@ -39,7 +39,7 @@
     </div>
     <h4 class="head-regular">Отзывы заказчиков</h4>
     <div class="response-card">
-        <img class="customer-photo" src="img/man-coat.png" width="120" height="127" alt="Фото заказчиков">
+        <img class="customer-photo" src="/img/man-coat.png" width="120" height="127" alt="Фото заказчиков">
         <div class="feedback-wrapper">
             <p class="feedback">«Кумар сделал всё в лучшем виде. Буду обращаться к нему в
                 будущем, если возникнет такая необходимость!»</p>
@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="response-card">
-        <img class="customer-photo" src="img/man-sweater.png" width="120" height="127" alt="Фото заказчиков">
+        <img class="customer-photo" src="/img/man-sweater.png" width="120" height="127" alt="Фото заказчиков">
         <div class="feedback-wrapper">
             <p class="feedback">«Кумар сделал всё в лучшем виде. Буду обращаться к нему в
                 будущем, если возникнет такая необходимость!»</p>
