@@ -33,9 +33,10 @@ class TaskFilterForm extends Model
     public static function getPeriodValue ()
     {
         return [
-            '1' => '1 час',
-            '12' => '12 часов',
-            '24' => '24 часа'
+            'all' => 'За все время',
+            'hour' => 'За один час',
+            'day' => 'За сутки',
+            'week' => 'За неделю',
         ];
     }
 }

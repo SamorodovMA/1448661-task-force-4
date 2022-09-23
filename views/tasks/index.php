@@ -2,6 +2,7 @@
 
 /** @var yii\web\View $this
  * @var object $dataProvider
+ * @var object $taskFilterForm
  */
 
 use app\models\Category;
@@ -63,9 +64,10 @@ $this->title = 'tasks';
                             'tag' => false,
                             'item' => function ($index, $label, $name, $checked, $value) {
                                 $index++;
+                                $checked = $checked ? 'checked' : '';
                                 return
                                     "<label class='control-label' for='{$index}'>
-                                 <input type='checkbox' id='{$index}' value='{$value}' >$label
+                                 <input type='checkbox' id='{$index}' name='{$name}' value='{$value}' $checked>$label
                                  </label>";
                             }
                         ]) ?>
@@ -74,16 +76,8 @@ $this->title = 'tasks';
             <h4 class="head-card">Дополнительно</h4>
             <div class="form-group">
 
-                <?php /*$executor = ArrayHelper:: map(User::find()->all(), 'id', 'is_executor'); */
-                /*= $form->field($taskFilterForm, 'executor')->checkbox([
-                    'labelOptions' => [
-                        'class' => 'control-label',
-                    ]
-                ]); */
-                ?>
                 <?= $form->field($taskFilterForm, 'withoutResponses')
                     ->checkbox(['id' => 'withoutResponses',
-                        'name'=> false,
                         'labelOptions' => [
                             'class' => 'control-label',
                         ]
@@ -92,7 +86,6 @@ $this->title = 'tasks';
             <div class="form-group">
                 <?= $form->field($taskFilterForm, 'remoteWork')
                     ->checkbox(['id' => 'remoteWork',
-                        'name'=> false,
                         'labelOptions' => [
                             'class' => 'control-label',
                         ]
@@ -108,7 +101,7 @@ $this->title = 'tasks';
 
                 ])
                     ->dropDownList(TaskFilterForm::getPeriodValue(), [
-                    ]); ?>
+                    ])->label(false); ?>
             </div>
 
             <?=Html::submitInput('Искать', ['class' => 'button button--blue'])?>

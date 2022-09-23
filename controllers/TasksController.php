@@ -1,9 +1,12 @@
 <?php
 namespace app\controllers;
 
+use app\models\Response;
 use app\models\Task;
 use app\models\TaskFilterForm;
 use yii\data\ActiveDataProvider;
+use yii\db\Expression;
+use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -12,18 +15,38 @@ class TasksController extends Controller
     public function actionIndex()
     {
         $taskFilterForm = new TaskFilterForm();
-        var_dump(\Yii::$app->request->post());
-        if($taskFilterForm->load(\Yii::$app->request->post())) {
 
-            echo '<pre>';
-            // var_dump($taskFilterForm);
-            echo '</pre>';
+        if ($taskFilterForm->load(\Yii::$app->request->post())) {
+
         }
 
         $tasksQuery = Task::find()
             ->where(['status' => Task::STATUS_NEW])
             ->with('category')
             ->with('city');
+
+        if ($taskFilterForm->categories) {
+            $tasksQuery->where(['in', 'category_id', $taskFilterForm->categories]);
+        }
+        if ($taskFilterForm->remoteWork) {
+            $tasksQuery->where(['is_remote' => $taskFilterForm->remoteWork]);
+        }
+        if ($taskFilterForm->withoutResponses){
+
+            $tasksQuery->leftJoin('response', 'tasks.id = response.task_id')
+                ->where(['is', 'task_id', null]);
+        }
+        switch ($taskFilterForm->period){
+        case 'hour':
+                 $tasksQuery->where(['>', 'date_creation', new Expression('CURRENT_TIMESTAMP() - INTERVAL 1 HOUR')]);
+                break;
+            case 'day':
+                 $tasksQuery->where(['>', 'date_creation', new Expression('CURRENT_TIMESTAMP() - INTERVAL 1 DAY')]);
+                break;
+            case 'week':
+                 $tasksQuery->where(['>', 'date_creation', new Expression('CURRENT_TIMESTAMP() - INTERVAL 7 DAY')]);
+                break;
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $tasksQuery,
@@ -45,13 +68,12 @@ class TasksController extends Controller
     /**
      * @throws NotFoundHttpException
      */
-    public function actionView($id = null) {
-        $task = Task::findOne($id);
-        if (!$task) {
+    public function actionView($id) {
+        $taskIdQuery = Task::findOne($id);
+        if (!$taskIdQuery) {
             throw new NotFoundHttpException("Задания с id ' {$id} 'не существует");
         }
-        print_r($task);
-        return $this->render('view');
+        return $this->render('view', ['taskIdQuery' => $taskIdQuery]);
     }
 
     public function actionUser() {
