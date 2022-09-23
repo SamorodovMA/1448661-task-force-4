@@ -1,5 +1,6 @@
 <?php
-
+Yii::$app->formatter->timeZone = 'UTC';
+Yii::$app->formatter->locale = 'ru-RU';
 ?>
 
 <div class="left-column">
@@ -53,7 +54,7 @@
                 <dt>Дата публикации</dt>
                 <dd><?=Yii::$app->formatter->format($taskIdQuery->date_creation, 'relativeTime')?></dd>
                 <dt>Срок выполнения</dt>
-                <dd><?=$taskIdQuery->period_execution?></dd>
+                <dd><?=Yii::$app->formatter->asDate($taskIdQuery->period_execution, 'php:d F, H:i' )?></dd>
                 <dt>Статус</dt>
                 <dd><?=$taskIdQuery->status?></dd>
             </dl>

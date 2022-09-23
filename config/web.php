@@ -8,6 +8,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
+    'timeZone' => 'Europe/Moscow',
     'name' => 'Taskforce',
     'layout' => 'main',
    'defaultRoute' => 'tasks',
@@ -16,6 +17,7 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '7lSvZhXuhHgssHrLP5A_byxeqF5LVLle',
