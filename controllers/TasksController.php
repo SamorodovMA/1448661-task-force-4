@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use app\models\Task;
 use app\models\TaskFilterForm;
+use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
 use yii\web\Controller;
@@ -67,6 +68,7 @@ class TasksController extends Controller
      * @throws NotFoundHttpException
      */
     public function actionView($id=null) {
+
         $taskIdQuery = Task::findOne($id);
         if (!$taskIdQuery) {
             throw new NotFoundHttpException("Задания с id ' {$id} 'не существует");
@@ -74,8 +76,15 @@ class TasksController extends Controller
         return $this->render('view', ['taskIdQuery' => $taskIdQuery]);
     }
 
-    public function actionUser() {
+    public function actionUser($id=null) {
 
+        $getUserById = User::findOne($id);
+            if (!$getUserById){
+                throw new NotFoundHttpException("Пользователя с id: ' {$id} 'не существует");
+            }
+            echo '<pre>';
+             print_r($getUserById);
+        echo '</pre>';
         return $this->render('user');
     }
 
