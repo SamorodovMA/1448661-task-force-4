@@ -15,10 +15,6 @@ class TasksController extends Controller
     {
         $taskFilterForm = new TaskFilterForm();
 
-        if ($taskFilterForm->load(\Yii::$app->request->post())) {
-
-        }
-
         $tasksQuery = Task::find()
             ->where(['status' => Task::STATUS_NEW])
             ->with('category')
