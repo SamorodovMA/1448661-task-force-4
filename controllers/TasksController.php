@@ -82,10 +82,8 @@ class TasksController extends Controller
             if (!$getUserById){
                 throw new NotFoundHttpException("Пользователя с id: ' {$id} 'не существует");
             }
-            echo '<pre>';
-             print_r($getUserById);
-        echo '</pre>';
-        return $this->render('user');
+
+        return $this->render('user', ['getUserById'=> $getUserById]);
     }
 
 }

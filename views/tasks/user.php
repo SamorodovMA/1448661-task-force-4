@@ -1,5 +1,5 @@
 <div class="left-column">
-    <h3 class="head-main">Астахов Павел</h3>
+    <h3 class="head-main"><?= $getUserById->name?></h3>
     <div class="user-card">
         <div class="photo-rate">
             <img class="card-photo" src="/img/man-glasses.png" width="191" height="190" alt="Фото пользователя">
@@ -9,12 +9,7 @@
             </div>
         </div>
         <p class="user-description">
-            Внезапно, ключевые особенности структуры проекта
-            неоднозначны и будут подвергнуты целой серии
-            независимых исследований. Следует отметить, что
-            высококачественный прототип будущего проекта, в
-            своём классическом представлении, допускает
-            внедрение своевременного выполнения сверхзадачи.
+            <?= $getUserById->description?>
         </p>
     </div>
     <div class="specialization-bio">
