@@ -8,17 +8,20 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
+    'timeZone' => 'Europe/Moscow',
     'name' => 'Taskforce',
     'layout' => 'main',
-    'defaultRoute' => 'tasks',
+   'defaultRoute' => 'tasks',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '7lSvZhXuhHgssHrLP5A_byxeqF5LVLle',
+            'baseUrl' => ''
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -46,14 +49,18 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => false,
             'rules' => [
+                // 'tasks' => '/tasks/index',
+                'user/view/<id:\d+>' => 'tasks/user',
+                'tasks/view/<id:\d+>' => 'tasks/view',
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];

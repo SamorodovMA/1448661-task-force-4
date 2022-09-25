@@ -83,7 +83,7 @@ class Task extends ActiveRecord
 
     public function getFeedbacks(): ActiveQuery
     {
-        return $this->hasMany(Feedback::class, ['task_id' => 'id'])->inverseOf('task');
+        return $this->hasMany(Feedback::class, ['task_id' => 'id']);
     }
 
 
@@ -95,12 +95,12 @@ class Task extends ActiveRecord
 
     public function getResponses(): ActiveQuery
     {
-        return $this->hasMany(Response::class, ['task_id' => 'id'])->inverseOf('task');
+        return $this->hasMany(Response::class, ['task_id' => 'id']);
     }
 
 
     public function getTaskFiles(): ActiveQuery
     {
-        return $this->hasMany(TaskFile::class, ['task_id' => 'id'])->inverseOf('task');
+        return $this->hasMany(TaskFile::class, ['task_id' => 'id']);
     }
 }
