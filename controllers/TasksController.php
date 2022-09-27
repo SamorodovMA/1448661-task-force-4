@@ -65,7 +65,7 @@ class TasksController extends Controller
 
         $task = Task::findOne($id);
         if (!$task) {
-            throw new NotFoundHttpException("Задания с id ' {$id} 'не существует");
+            throw new NotFoundHttpException("Задания с ID $id не найден");
         }
         return $this->render('view', ['task' => $task]);
     }
@@ -75,7 +75,7 @@ class TasksController extends Controller
         $user = User::findOne($id);
 
             if (!$user || !$user->is_executor){
-                throw new NotFoundHttpException("Пользователя с id: ' {$id} 'не существует");
+                throw new NotFoundHttpException("Пользователя с ID $id не найден");
             }
 
         return $this->render('user', ['user'=> $user]);

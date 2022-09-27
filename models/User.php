@@ -66,14 +66,17 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'email', 'password', 'password_repeat', 'city_id'], 'required'],
-            [['date_creation', 'birthday'], 'safe'],
+            [['name', 'email', 'password', 'password_repeat', 'city_id'], 'safe'],
+            ['email', 'email'],
+            [['email'], 'unique'],
+            ['phone', 'match', 'pattern' => '/^[\d]{11}/i',
+                'message' => 'Номер телефона должен состоять из 11 цифр'],
+            ['name', 'string', 'min' => 2],
+            ['password', 'string', 'min' => 8],
+            ['password', 'compare'],
             [['rating', 'popularity', 'avatar_file_id', 'orders_num', 'executor_status', 'is_executor', 'city_id'], 'integer'],
             [['bio', 'description'], 'string'],
-            [['name', 'email'], 'string', 'max' => 255],
-            [['password'], 'string', 'max' => 64],
-            [['phone'], 'string', 'max' => 11],
             [['telegram'], 'string', 'max' => 50],
-            [['email'], 'unique'],
             [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => City::class, 'targetAttribute' => ['city_id' => 'id']],
             [['avatar_file_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::class, 'targetAttribute' => ['avatar_file_id' => 'id']],
         ];
@@ -86,10 +89,10 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Ваше имя',
             'email' => 'Email',
-            'password' => 'Password',
-            'password_repeat' => 'password_repeat',
+            'password' => 'Пароль',
+            'password_repeat' => 'Повтор пароля',
             'date_creation' => 'Date Creation',
             'rating' => 'Rating',
             'popularity' => 'Popularity',
@@ -100,9 +103,9 @@ class User extends \yii\db\ActiveRecord
             'bio' => 'Bio',
             'orders_num' => 'Orders Num',
             'executor_status' => 'Head Card Status',
-            'is_executor' => 'Is Executor',
+            'is_executor' => ' я собираюсь откликаться на заказы',
             'description' => 'Description',
-            'city_id' => 'City ID',
+            'city_id' => 'Город',
         ];
     }
 

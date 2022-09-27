@@ -6,35 +6,28 @@ use yii\widgets\ActiveForm;
     <div class="center-block">
         <div class="registration-form regular-form">
 
-                <?php $form = ActiveForm::begin()?>
-                <h3 class="head-main head-task">Регистрация нового пользователя</h3>
-                <div class="form-group">
-                 <?=$form->field($model, 'name') ?>
-                </div>
-                <div class="half-wrapper">
-                    <div class="form-group">
-                        <?=$form->field($model, 'email') ?>
-                    </div>
-                    <div class="form-group">
-                        <?=$form->field($model, 'city_id') ?>
-                    </div>
-                </div>
-                <div class="half-wrapper">
-                    <div class="form-group">
-                   <?=$form->field($model, 'password') ?>
-                    </div>
-                </div>
-                <div class="half-wrapper">
+            <?php
+            $form = ActiveForm::begin(['id' => 'signup-form',]); ?>
 
-                    <div class="form-group">
-                        <?=$form->field($model, 'password_repeat') ?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <?= $form->field($model, 'is_executor')->checkbox()?>
-                </div>
-            <?=Html::submitInput('Создать аккаунт', ['class' => 'button button--blue'])?>
-            <?php ActiveForm::end() ?>
+            <h3 class="head-main head-task">Регистрация нового пользователя</h3>
+            <?= $form->field($model, 'name') ?>
+            <div class="half-wrapper">
+                <?= $form->field($model, 'email') ?>
+
+                <?= $form->field($model, 'city_id')->dropDownList($cities) ?>
+            </div>
+            <div class="half-wrapper">
+                <?= $form->field($model, 'password') ?>
+            </div>
+            <div class="half-wrapper">
+                <?= $form->field($model, 'password_repeat') ?>
+            </div>
+            <?= $form->field($model, 'is_executor')->checkbox() ?>
+
+            <?= Html::submitInput('Создать аккаунт', ['class' => 'button button--blue']) ?>
+
+            <?php
+            ActiveForm::end() ?>
         </div>
     </div>
 </main>

@@ -55,7 +55,8 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
-                // 'tasks' => '/tasks/index',
+                '//' => '/',
+                'tasks' => 'tasks/index',
                 'tasks/view/' => 'tasks/view',
                 'user/view/' => 'tasks/user',
 
