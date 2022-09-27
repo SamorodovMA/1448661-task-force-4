@@ -2,46 +2,70 @@
 
 namespace app\models;
 
-use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
+use Yii;
 
-
-class Category extends ActiveRecord
+/**
+ * This is the model class for table "categories".
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $icon
+ *
+ * @property Task[] $tasks
+ * @property UserCategory[] $userCategories
+ */
+class Category extends \yii\db\ActiveRecord
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public static function tableName()
     {
         return 'categories';
     }
 
-
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
             [['name'], 'required'],
-            [['name'], 'string', 'max' => 255],
+            [['name'], 'string', 'max' => 128],
             [['icon'], 'string', 'max' => 20],
             [['name'], 'unique'],
         ];
     }
 
-
+    /**
+     * {@inheritdoc}
+     */
     public function attributeLabels()
     {
         return [
             'id' => 'ID',
-            'name' => 'Имя',
-            'icon' => 'Иконка',
+            'name' => 'Name',
+            'icon' => 'Icon',
         ];
     }
 
-    public function getTask(): ActiveQuery
+    /**
+     * Gets query for [[Tasks]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTasks()
     {
-        return $this->hasMany(Task::class, ['category_id' => 'id'])->inverseOf('category');
+        return $this->hasMany(Task::class, ['category_id' => 'id']);
     }
 
-    public function getUser(): ActiveQuery
+    /**
+     * Gets query for [[UserCategories]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserCategories()
     {
-        return $this->hasMany(User::class, ['category_id' => 'id'])->inverseOf('category');
+        return $this->hasMany(UserCategory::class, ['category_id' => 'id']);
     }
 }

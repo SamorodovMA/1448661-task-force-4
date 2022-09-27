@@ -2,17 +2,14 @@
 
 use yii\helpers\Url;
 
-Yii::$app->formatter->timeZone = 'UTC';
-Yii::$app->formatter->locale = 'ru-RU';
 ?>
-
 <div class="left-column">
         <div class="head-wrapper">
-            <h3 class="head-main"><?=$taskIdQuery->name?></h3>
-            <p class="price price--big"><?=$taskIdQuery->budget?> ₽</p>
+            <h3 class="head-main"><?=$task->name?></h3>
+            <p class="price price--big"><?=$task->budget?> ₽</p>
         </div>
         <p class="task-description">
-            <?=$taskIdQuery->description?></p>
+            <?=$task->description?></p>
         <a href="#" class="button button--blue action-btn" data-action="act_response">Откликнуться на задание</a>
         <a href="#" class="button button--orange action-btn" data-action="refusal">Отказаться от задания</a>
         <a href="#" class="button button--pink action-btn" data-action="completion">Завершить задание</a>
@@ -22,24 +19,25 @@ Yii::$app->formatter->locale = 'ru-RU';
             <p class="map-address">Новый арбат, 23, к. 1</p>
         </div>
         <h4 class="head-regular">Отклики на задание</h4>
-    <?php $responses = $taskIdQuery->responses; ?>
-<?php foreach ($responses as $response): ?>
+
+<?php foreach ($task->responses as $response): ?>
         <div class="response-card">
-            <img class="customer-photo" src="/img/man-glasses.png" width="146" height="156" alt="Фото заказчиков">
+            <img class="customer-photo" src="<?= (empty($response->executor->avatarFile->path)) ? '': $response->executor->avatarFile->path; ?>" width="146" height="156" alt="Фото заказчиков">
             <div class="feedback-wrapper">
-                <a href="" class="link link--block link--big">Астахов Павел</a>
+                <a href="<?= Url::toRoute(['user/view/','id' => $response->executor->id])?>" class="link link--block link--big"><?=$response->executor->name; ?></a>
                 <div class="response-wrapper">
                     <div class="stars-rating small"><span class="fill-star">&nbsp;</span><span class="fill-star">&nbsp;</span><span class="fill-star">&nbsp;</span><span class="fill-star">&nbsp;</span><span>&nbsp;</span></div>
-                    <p class="reviews">2 отзыва</p>
+                    <p class="reviews">1 отзыва</p>
                 </div>
                 <p class="response-message">
-Могу сделать всё в лучшем виде. У меня есть необходимый опыт и инструменты.
+                    <?=$response->comment; ?>
                 </p>
 
             </div>
             <div class="feedback-wrapper">
-                <p class="info-text"><span class="current-time">25 минут </span>назад</p>
-                <p class="price price--small"><?= $response['price']; ?></p>
+                <p class="info-text"><span class="current-time">
+                       <?=Yii::$app->formatter->format($response->date_creation, 'relativeTime'); ?>
+                <p class="price price--small"><?= $response->price; ?></p>
             </div>
             <div class="button-popup">
                 <a href="#" class="button button--blue button--small">Принять</a>
@@ -53,13 +51,13 @@ Yii::$app->formatter->locale = 'ru-RU';
             <h4 class="head-card">Информация о задании</h4>
             <dl class="black-list">
                 <dt>Категория</dt>
-                <dd><?=$taskIdQuery->category->name?></dd>
+                <dd><?=$task->category->name?></dd>
                 <dt>Дата публикации</dt>
-                <dd><?=Yii::$app->formatter->format($taskIdQuery->date_creation, 'relativeTime')?></dd>
+                <dd><?=Yii::$app->formatter->format($task->date_creation, 'relativeTime')?></dd>
                 <dt>Срок выполнения</dt>
-                <dd><?=Yii::$app->formatter->asDate($taskIdQuery->period_execution, 'php:d F, H:i' )?></dd>
+                <dd><?=Yii::$app->formatter->asDate($task->period_execution, 'php:d F, H:i' )?></dd>
                 <dt>Статус</dt>
-                <dd><?=$taskIdQuery->status?></dd>
+                <dd><?=$task->getStatusName()?></dd>
             </dl>
         </div>
         <div class="right-card white file-card">

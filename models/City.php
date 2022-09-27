@@ -14,6 +14,7 @@ use Yii;
  *
  * @property Location[] $locations
  * @property Task[] $tasks
+ * @property User[] $users
  */
 class City extends \yii\db\ActiveRecord
 {
@@ -34,7 +35,6 @@ class City extends \yii\db\ActiveRecord
             [['name', 'latitude', 'longitude'], 'required'],
             [['latitude', 'longitude'], 'number'],
             [['name'], 'string', 'max' => 255],
-            [['name'], 'unique'],
         ];
     }
 
@@ -69,5 +69,15 @@ class City extends \yii\db\ActiveRecord
     public function getTasks()
     {
         return $this->hasMany(Task::class, ['city_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Users]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasMany(User::class, ['city_id' => 'id']);
     }
 }

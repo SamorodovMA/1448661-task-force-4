@@ -2,31 +2,79 @@
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yii;
 
-class User extends ActiveRecord
+/**
+ * This is the model class for table "users".
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string $date_creation
+ * @property int|null $rating
+ * @property int|null $popularity
+ * @property int|null $avatar_file_id
+ * @property string|null $birthday
+ * @property string|null $phone
+ * @property string|null $telegram
+ * @property string|null $bio
+ * @property int|null $orders_num
+ * @property int|null $executor_status
+ * @property int|null $is_executor
+ * @property string|null $description
+ * @property int|null $city_id
+ *
+ * @property File $avatarFile
+ * @property City $city
+ * @property Feedback[] $feedbacks
+ * @property Response[] $responses
+ * @property Task[] $tasks
+ * @property Task[] $tasks0
+ * @property UserCategory[] $userCategories
+ */
+class User extends \yii\db\ActiveRecord
 {
+    const STATUS_OPEN = 1;
+    const STATUS_BUSY = 2;
 
+    private function getExecutorStatusesList() {
+        return [
+            self::STATUS_OPEN => 'Открыт для новых заказов',
+            self::STATUS_BUSY => 'Занят'
+        ];
+    }
+
+    public function getExecutorStatusName() {
+        $statusList = $this->getExecutorStatusesList();
+        return $statusList[$this->executor_status];
+    }
+
+    public $password_repeat;
+    /**
+     * {@inheritdoc}
+     */
     public static function tableName()
     {
         return 'users';
     }
 
-
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
-            [['name', 'email', 'password'], 'required'],
-            [['name', 'email', 'phone' ,'password'], 'safe'],
-            [['category_id', 'rating', 'popularity', 'avatar_file_id', 'orders_num', 'user_status', 'is_executor'], 'integer'],
-            [['bio'], 'string'],
-            [['name'], 'string', 'max' => 255],
-            [['email'], 'string', 'max' => 128],
+            [['name', 'email', 'password', 'password_repeat', 'city_id'], 'required'],
+            [['date_creation', 'birthday'], 'safe'],
+            [['rating', 'popularity', 'avatar_file_id', 'orders_num', 'executor_status', 'is_executor', 'city_id'], 'integer'],
+            [['bio', 'description'], 'string'],
+            [['name', 'email'], 'string', 'max' => 255],
             [['password'], 'string', 'max' => 64],
             [['phone'], 'string', 'max' => 11],
             [['telegram'], 'string', 'max' => 50],
             [['email'], 'unique'],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => City::class, 'targetAttribute' => ['city_id' => 'id']],
             [['avatar_file_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::class, 'targetAttribute' => ['avatar_file_id' => 'id']],
         ];
     }
@@ -41,8 +89,8 @@ class User extends ActiveRecord
             'name' => 'Name',
             'email' => 'Email',
             'password' => 'Password',
+            'password_repeat' => 'password_repeat',
             'date_creation' => 'Date Creation',
-            'category_id' => 'Category ID',
             'rating' => 'Rating',
             'popularity' => 'Popularity',
             'avatar_file_id' => 'Avatar File ID',
@@ -51,8 +99,10 @@ class User extends ActiveRecord
             'telegram' => 'Telegram',
             'bio' => 'Bio',
             'orders_num' => 'Orders Num',
-            'user_status' => 'User Status',
+            'executor_status' => 'Head Card Status',
             'is_executor' => 'Is Executor',
+            'description' => 'Description',
+            'city_id' => 'City ID',
         ];
     }
 
@@ -67,13 +117,13 @@ class User extends ActiveRecord
     }
 
     /**
-     * Gets query for [[Category]].
+     * Gets query for [[City]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCategory()
+    public function getCity()
     {
-        return $this->hasOne(Category::class, ['id' => 'category_id']);
+        return $this->hasOne(City::class, ['id' => 'city_id']);
     }
 
     /**
@@ -111,8 +161,18 @@ class User extends ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTasks0()
+    public function getTasksExecutor()
     {
         return $this->hasMany(Task::class, ['executor_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[UserCategories]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserCategories()
+    {
+        return $this->hasMany(UserCategory::class, ['user_id' => 'id']);
     }
 }

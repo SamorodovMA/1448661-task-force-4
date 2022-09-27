@@ -8,14 +8,14 @@ use Yii;
  * This is the model class for table "response".
  *
  * @property int $id
- * @property string|null $date_creation
+ * @property string $date_creation
  * @property int $task_id
  * @property int $executor_id
- * @property int $price
+ * @property int|null $price
  * @property string|null $comment
  *
  * @property User $executor
- * @property Task $site
+ * @property Task $task
  */
 class Response extends \yii\db\ActiveRecord
 {
@@ -34,11 +34,11 @@ class Response extends \yii\db\ActiveRecord
     {
         return [
             [['date_creation'], 'safe'],
-            [['task_id', 'executor_id', 'price'], 'required'],
+            [['task_id', 'executor_id'], 'required'],
             [['task_id', 'executor_id', 'price'], 'integer'],
             [['comment'], 'string', 'max' => 255],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::class, 'targetAttribute' => ['task_id' => 'id']],
             [['executor_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['executor_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::class, 'targetAttribute' => ['task_id' => 'id']],
         ];
     }
 

@@ -12,7 +12,7 @@ use Yii;
  * @property int $file_id
  *
  * @property File $file
- * @property Task $site
+ * @property Task $task
  */
 class TaskFile extends \yii\db\ActiveRecord
 {
@@ -32,8 +32,8 @@ class TaskFile extends \yii\db\ActiveRecord
         return [
             [['task_id', 'file_id'], 'required'],
             [['task_id', 'file_id'], 'integer'],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::class, 'targetAttribute' => ['task_id' => 'id']],
             [['file_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::class, 'targetAttribute' => ['file_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::class, 'targetAttribute' => ['task_id' => 'id']],
         ];
     }
 

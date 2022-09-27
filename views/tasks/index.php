@@ -48,6 +48,7 @@ $this->title = 'tasks';
         <div class="search-form">
             <?php
             $form = ActiveForm:: begin([
+                    'method' => 'get',
                 'fieldConfig' => [
                     'template' => "{input}",
                     'options' => ['tag' => false],

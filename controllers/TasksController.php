@@ -20,7 +20,7 @@ class TasksController extends Controller
             ->with('category')
             ->with('city');
 
-        if ($taskFilterForm->load(\Yii::$app->request->post())) {
+        if ($taskFilterForm->load(\Yii::$app->request->get())) {
             if ($taskFilterForm->categories) {
                 $tasksQuery->where(['in', 'category_id', $taskFilterForm->categories]);
             }
@@ -61,24 +61,24 @@ class TasksController extends Controller
         );
     }
 
-
     public function actionView($id=null) {
 
-        $taskIdQuery = Task::findOne($id);
-        if (!$taskIdQuery) {
+        $task = Task::findOne($id);
+        if (!$task) {
             throw new NotFoundHttpException("Задания с id ' {$id} 'не существует");
         }
-        return $this->render('view', ['taskIdQuery' => $taskIdQuery]);
+        return $this->render('view', ['task' => $task]);
     }
 
     public function actionUser($id=null) {
 
-        $getUserById = User::findOne($id);
-            if (!$getUserById){
+        $user = User::findOne($id);
+
+            if (!$user || !$user->is_executor){
                 throw new NotFoundHttpException("Пользователя с id: ' {$id} 'не существует");
             }
 
-        return $this->render('user', ['getUserById'=> $getUserById]);
+        return $this->render('user', ['user'=> $user]);
     }
 
 }

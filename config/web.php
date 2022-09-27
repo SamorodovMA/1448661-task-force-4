@@ -56,8 +56,9 @@ $config = [
             'enableStrictParsing' => false,
             'rules' => [
                 // 'tasks' => '/tasks/index',
-                'user/view/<id:\d+>' => 'tasks/user',
-                'tasks/view/<id:\d+>' => 'tasks/view',
+                'tasks/view/' => 'tasks/view',
+                'user/view/' => 'tasks/user',
+
             ],
         ],
 
