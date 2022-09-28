@@ -59,7 +59,7 @@ $config = [
                 'tasks' => 'tasks/index',
                 'tasks/view/' => 'tasks/view',
                 'user/view/' => 'tasks/user',
-
+                'signup'  =>'signup/index',
             ],
         ],
 

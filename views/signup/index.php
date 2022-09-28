@@ -17,10 +17,10 @@ use yii\widgets\ActiveForm;
                 <?= $form->field($model, 'city_id')->dropDownList($cities) ?>
             </div>
             <div class="half-wrapper">
-                <?= $form->field($model, 'password') ?>
+                <?= $form->field($model, 'password')->passwordInput() ?>
             </div>
             <div class="half-wrapper">
-                <?= $form->field($model, 'password_repeat') ?>
+                <?= $form->field($model, 'password_repeat')->passwordInput() ?>
             </div>
             <?= $form->field($model, 'is_executor')->checkbox() ?>
 
