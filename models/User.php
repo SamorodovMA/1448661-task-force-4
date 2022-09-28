@@ -154,7 +154,7 @@ class User extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTasks()
+    public function getCustomerTasks()
     {
         return $this->hasMany(Task::class, ['customer_id' => 'id']);
     }
@@ -164,7 +164,7 @@ class User extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTasksExecutor()
+    public function getExecutorTasks()
     {
         return $this->hasMany(Task::class, ['executor_id' => 'id']);
     }
