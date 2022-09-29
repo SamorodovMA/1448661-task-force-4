@@ -1,4 +1,9 @@
 <?php
+/** @var yii\web\View $this
+ * @var $model
+ * @var array $cities
+ */
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 ?>
@@ -10,24 +15,23 @@ use yii\widgets\ActiveForm;
             $form = ActiveForm::begin(['id' => 'signup-form',]); ?>
 
             <h3 class="head-main head-task">Регистрация нового пользователя</h3>
-            <?= $form->field($model, 'name') ?>
+            <?= $form->field($model, 'name'); ?>
             <div class="half-wrapper">
-                <?= $form->field($model, 'email') ?>
+                <?= $form->field($model, 'email'); ?>
 
-                <?= $form->field($model, 'city_id')->dropDownList($cities) ?>
+                <?= $form->field($model, 'city_id')->dropDownList($cities); ?>
             </div>
             <div class="half-wrapper">
-                <?= $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'password')->passwordInput(); ?>
             </div>
             <div class="half-wrapper">
-                <?= $form->field($model, 'password_repeat')->passwordInput() ?>
+                <?= $form->field($model, 'password_repeat')->passwordInput(); ?>
             </div>
-            <?= $form->field($model, 'is_executor')->checkbox() ?>
+            <?= $form->field($model, 'is_executor')->checkbox(); ?>
 
-            <?= Html::submitInput('Создать аккаунт', ['class' => 'button button--blue']) ?>
+            <?= Html::submitInput('Создать аккаунт', ['class' => 'button button--blue']); ?>
 
-            <?php
-            ActiveForm::end() ?>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </main>

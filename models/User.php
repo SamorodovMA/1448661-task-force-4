@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "users".
@@ -33,7 +34,7 @@ use Yii;
  * @property Task[] $tasks0
  * @property UserCategory[] $userCategories
  */
-class User extends \yii\db\ActiveRecord
+class User extends ActiveRecord
 {
     const STATUS_OPEN = 1;
     const STATUS_BUSY = 2;

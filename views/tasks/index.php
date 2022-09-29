@@ -105,9 +105,9 @@ $this->title = 'tasks';
                     ])->label(false); ?>
             </div>
 
-            <?=Html::submitInput('Искать', ['class' => 'button button--blue'])?>
+            <?=Html::submitInput('Искать', ['class' => 'button button--blue']); ?>
 
-            <?php ActiveForm::end() ?>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>

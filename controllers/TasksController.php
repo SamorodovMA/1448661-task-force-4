@@ -70,15 +70,4 @@ class TasksController extends Controller
         return $this->render('view', ['task' => $task]);
     }
 
-    public function actionUser($id=null) {
-
-        $user = User::findOne($id);
-
-            if (!$user || !$user->is_executor){
-                throw new NotFoundHttpException("Пользователя с ID $id не найден");
-            }
-
-        return $this->render('user', ['user'=> $user]);
-    }
-
 }

@@ -1,5 +1,7 @@
 <?php
-
+/** @var yii\web\View $this
+ * @var object $task
+ */
 use yii\helpers\Url;
 
 ?>
@@ -24,7 +26,7 @@ use yii\helpers\Url;
         <div class="response-card">
             <img class="customer-photo" src="<?= (empty($response->executor->avatarFile->path)) ? '': $response->executor->avatarFile->path; ?>" width="146" height="156" alt="Фото заказчиков">
             <div class="feedback-wrapper">
-                <a href="<?= Url::toRoute(['user/view/','id' => $response->executor->id])?>" class="link link--block link--big"><?=$response->executor->name; ?></a>
+                <a href="<?= Url::toRoute(['user/view','id' => $response->executor->id])?>" class="link link--block link--big"><?=$response->executor->name; ?></a>
                 <div class="response-wrapper">
                     <div class="stars-rating small"><span class="fill-star">&nbsp;</span><span class="fill-star">&nbsp;</span><span class="fill-star">&nbsp;</span><span class="fill-star">&nbsp;</span><span>&nbsp;</span></div>
                     <p class="reviews">1 отзыва</p>
@@ -51,13 +53,13 @@ use yii\helpers\Url;
             <h4 class="head-card">Информация о задании</h4>
             <dl class="black-list">
                 <dt>Категория</dt>
-                <dd><?=$task->category->name?></dd>
+                <dd><?=$task->category->name; ?></dd>
                 <dt>Дата публикации</dt>
-                <dd><?=Yii::$app->formatter->format($task->date_creation, 'relativeTime')?></dd>
+                <dd><?=Yii::$app->formatter->format($task->date_creation, 'relativeTime'); ?></dd>
                 <dt>Срок выполнения</dt>
-                <dd><?=Yii::$app->formatter->asDate($task->period_execution, 'php:d F, H:i' )?></dd>
+                <dd><?=Yii::$app->formatter->asDate($task->period_execution, 'php:d F, H:i' ); ?></dd>
                 <dt>Статус</dt>
-                <dd><?=$task->getStatusName()?></dd>
+                <dd><?=$task->getStatusName(); ?></dd>
             </dl>
         </div>
         <div class="right-card white file-card">
