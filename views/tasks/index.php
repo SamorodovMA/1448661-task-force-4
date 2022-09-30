@@ -48,6 +48,7 @@ $this->title = 'tasks';
         <div class="search-form">
             <?php
             $form = ActiveForm:: begin([
+                    'method' => 'get',
                 'fieldConfig' => [
                     'template' => "{input}",
                     'options' => ['tag' => false],
@@ -104,9 +105,9 @@ $this->title = 'tasks';
                     ])->label(false); ?>
             </div>
 
-            <?=Html::submitInput('Искать', ['class' => 'button button--blue'])?>
+            <?=Html::submitInput('Искать', ['class' => 'button button--blue']); ?>
 
-            <?php ActiveForm::end() ?>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>

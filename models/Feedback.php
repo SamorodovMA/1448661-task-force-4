@@ -11,11 +11,11 @@ use Yii;
  * @property int $customer_id
  * @property int $task_id
  * @property string $date_creation
- * @property string|null $description
+ * @property string $description
  * @property int $rating
  *
  * @property User $customer
- * @property Task $site
+ * @property Task $task
  */
 class Feedback extends \yii\db\ActiveRecord
 {
@@ -33,12 +33,12 @@ class Feedback extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['customer_id', 'task_id', 'rating'], 'required'],
+            [['customer_id', 'task_id', 'description', 'rating'], 'required'],
             [['customer_id', 'task_id', 'rating'], 'integer'],
             [['date_creation'], 'safe'],
             [['description'], 'string'],
-            [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['customer_id' => 'id']],
             [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::class, 'targetAttribute' => ['task_id' => 'id']],
+            [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['customer_id' => 'id']],
         ];
     }
 

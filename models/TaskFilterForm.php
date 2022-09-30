@@ -6,9 +6,9 @@ use yii\base\Model;
 
 class TaskFilterForm extends Model
 {
-    public  $categories;
-    public  $withoutResponses;
-    public  $remoteWork;
+    public $categories;
+    public $withoutResponses;
+    public $remoteWork;
     public $period;
 
     public function attributeLabels()
@@ -16,7 +16,7 @@ class TaskFilterForm extends Model
         return [
             'categories' => 'Категории',
             'withoutResponses' => 'Без откликов',
-            'remoteWork'=> 'Удалённая работа',
+            'remoteWork' => 'Удалённая работа',
             'period' => 'Период'
         ];
 
