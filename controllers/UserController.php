@@ -3,12 +3,28 @@
 namespace app\controllers;
 
 use app\models\User;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 class UserController extends Controller
 {
-    public function actionView($id=null) {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['view'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+    public function actionView($id = null) {
 
         $user = User::findOne($id);
 

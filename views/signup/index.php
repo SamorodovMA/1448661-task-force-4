@@ -1,25 +1,38 @@
 <?php
 /** @var yii\web\View $this
- * @var $model
- * @var array $cities
+ * @var $model SignupForm
  */
 
+use app\models\SignupForm;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+
 ?>
 <main class="container container--registration">
     <div class="center-block">
         <div class="registration-form regular-form">
 
             <?php
-            $form = ActiveForm::begin(['id' => 'signup-form',]); ?>
+            $form = ActiveForm::begin([
+                'id' => $model->formName(),
+                'enableAjaxValidation' => true,
+
+                'fieldConfig' => [
+                    'inputOptions' => ['class' => null],
+                    'labelOptions' => ['class' => 'control-label'],
+                    'errorOptions' => ['tag' => 'span', 'class' => 'help-block'],
+                ],
+            ]);
+            ?>
 
             <h3 class="head-main head-task">Регистрация нового пользователя</h3>
+
             <?= $form->field($model, 'name'); ?>
             <div class="half-wrapper">
                 <?= $form->field($model, 'email'); ?>
 
-                <?= $form->field($model, 'city_id')->dropDownList($cities); ?>
+                <?= $form->field($model, 'city_id')->dropDownList($model->getCities()); ?>
+
             </div>
             <div class="half-wrapper">
                 <?= $form->field($model, 'password')->passwordInput(); ?>

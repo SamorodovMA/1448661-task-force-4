@@ -6,11 +6,28 @@ use app\models\TaskFilterForm;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 class TasksController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view' ],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
         $taskFilterForm = new TaskFilterForm();

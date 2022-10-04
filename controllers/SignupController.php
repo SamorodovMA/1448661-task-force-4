@@ -2,15 +2,18 @@
 
 namespace app\controllers;
 
-use app\models\City;
-use app\models\User;
+use app\models\SignupForm;
 use Yii;
 use yii\filters\AccessControl;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 class SignupController extends Controller
 {
+    /**
+     * {@inheritdoc}
+     */
     public function behaviors()
     {
         return [
@@ -19,8 +22,8 @@ class SignupController extends Controller
                 'only' => ['index'],
                 'rules' => [
                     [
-                        'allow' => true,
                         'actions' => ['index'],
+                        'allow' => true,
                         'roles' => ['?'],
                     ],
                 ],
@@ -30,25 +33,25 @@ class SignupController extends Controller
 
     public function actionIndex()
     {
-        $cities = City::find()
-            ->asArray()
-            ->all();
-        $cityNames = ArrayHelper::map($cities, 'id', 'name');
+        $model = new SignupForm();
 
-
-
-        $user = new User();
         if (Yii::$app->request->getIsPost()) {
-            $user->load(Yii::$app->request->post());
+            $model->load(Yii::$app->request->post());
 
-            if ($user->validate()) {
-                $user->password = Yii::$app->security->generatePasswordHash($user->password);
-
-                $user->save();
-                $this->goHome();
+            if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
             }
+
+            if ($model->validate()) {
+                $model->signup();
+
+                return $this->goHome();
+            }
+
         }
 
-        return $this->render('index', ['model' => $user, 'cities' => $cityNames]);
+        return $this->render('index', ['model' => $model]);
+
     }
 }
