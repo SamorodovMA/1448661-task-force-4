@@ -12,13 +12,18 @@ class LandingController extends Controller
 {
     public $layout = 'landing';
 
-
+    public function actions()
+    {
+        return [
+            'error' => ['class' => 'yii\web\ErrorAction'],
+        ];
+    }
 
     public function actionIndex()
     {
-        /* if (!Yii::$app->user->isGuest) {
-             return $this->goHome();
-         }*/
+        if (Yii::$app->user->getId()) {
+            return $this->redirect('/tasks', 302);
+        }
 
         $loginForm = new LoginForm();
 
@@ -33,7 +38,8 @@ class LandingController extends Controller
             if ($loginForm->validate()) {
                 $user = $loginForm->getUser();
                 \Yii::$app->user->login($user);
-                return $this->redirect('/tasks/index');
+
+                return $this->redirect('/tasks');
             }
         }
         return $this->render('index', ['model' => $loginForm]);
@@ -52,4 +58,3 @@ class LandingController extends Controller
     }
 
 }
-

@@ -1,12 +1,13 @@
 <?php
 
 use app\models\LoginForm;
+
 /**
  * @var $model LoginForm
  */
 ?>
 
-<?= $this->render('_login', [
+<?= $this->render('_loginForm', [
     'model' => $model
 ]); ?>
 
