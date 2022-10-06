@@ -21,7 +21,7 @@ class LandingController extends Controller
 
     public function actionIndex()
     {
-        if (Yii::$app->user->getId()) {
+        if (Yii::$app->user->getIdentity()) {
             return $this->redirect('/tasks', 302);
         }
 
