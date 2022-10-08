@@ -3,14 +3,13 @@ namespace app\controllers;
 
 use app\models\Task;
 use app\models\TaskFilterForm;
-use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
-class TasksController extends Controller
+class TasksController extends SecuredController
 {
+
     public function actionIndex()
     {
         $taskFilterForm = new TaskFilterForm();

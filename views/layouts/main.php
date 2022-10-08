@@ -58,7 +58,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '@w
                 <img class="user-photo" src="/img/man-glasses.png" width="55" height="55" alt="Аватар">
             </a>
             <div class="user-menu">
-                <p class="user-name">Василий</p>
+                <p class="user-name"><?=(Yii::$app->user->identity->name);?></p>
                 <div class="popup-head">
                     <ul class="popup-menu">
                         <li class="menu-item">
@@ -68,7 +68,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '@w
                             <a href="#" class="link">Связаться с нами</a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="link">Выход из системы</a>
+                            <a href="<?= Url::to('/landing/logout') ;?>" class="link">Выход из системы</a>
                         </li>
 
                     </ul>

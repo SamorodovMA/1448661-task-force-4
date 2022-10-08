@@ -3,7 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "users".
@@ -34,12 +36,15 @@ use yii\db\ActiveRecord;
  * @property Task[] $tasks0
  * @property UserCategory[] $userCategories
  */
-class User extends ActiveRecord
+class User extends ActiveRecord implements IdentityInterface
 {
+
     const STATUS_OPEN = 1;
     const STATUS_BUSY = 2;
 
-    private function getExecutorStatusesList() {
+
+    private function getExecutorStatusesList()
+    {
         return [
             self::STATUS_OPEN => 'Открыт для новых заказов',
             self::STATUS_BUSY => 'Занят'
@@ -51,7 +56,7 @@ class User extends ActiveRecord
         return $statusList[$this->executor_status];
     }
 
-    public $password_repeat;
+
     /**
      * {@inheritdoc}
      */
@@ -66,17 +71,15 @@ class User extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'email', 'password', 'password_repeat', 'city_id'], 'required'],
-            [['name', 'email', 'password', 'password_repeat', 'city_id'], 'safe'],
-            ['email', 'email'],
+            [['name', 'email', 'password'], 'required'],
+            [['date_creation', 'birthday'], 'safe'],
             [['email'], 'unique'],
-            ['phone', 'match', 'pattern' => '/^[\d]{11}/i',
-                'message' => 'Номер телефона должен состоять из 11 цифр'],
-            ['name', 'string', 'min' => 2],
-            ['password', 'string', 'min' => 8],
-            ['password', 'compare'],
-            [['rating', 'popularity', 'avatar_file_id', 'orders_num', 'executor_status', 'is_executor', 'city_id'], 'integer'],
+            [['rating'], 'number'],
+            [['popularity', 'avatar_file_id', 'orders_num', 'executor_status', 'is_executor', 'city_id', 'complete', 'refuse'], 'integer'],
             [['bio', 'description'], 'string'],
+            [['name', 'email'], 'string', 'max' => 255],
+            [['password'], 'string', 'max' => 64],
+            [['phone'], 'string', 'max' => 11],
             [['telegram'], 'string', 'max' => 50],
             [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => City::class, 'targetAttribute' => ['city_id' => 'id']],
             [['avatar_file_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::class, 'targetAttribute' => ['avatar_file_id' => 'id']],
@@ -113,7 +116,7 @@ class User extends ActiveRecord
     /**
      * Gets query for [[AvatarFile]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAvatarFile()
     {
@@ -123,7 +126,7 @@ class User extends ActiveRecord
     /**
      * Gets query for [[City]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCity()
     {
@@ -133,7 +136,7 @@ class User extends ActiveRecord
     /**
      * Gets query for [[Feedbacks]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getFeedbacks()
     {
@@ -143,7 +146,7 @@ class User extends ActiveRecord
     /**
      * Gets query for [[Responses]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getResponses()
     {
@@ -153,7 +156,7 @@ class User extends ActiveRecord
     /**
      * Gets query for [[Tasks]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCustomerTasks()
     {
@@ -163,7 +166,7 @@ class User extends ActiveRecord
     /**
      * Gets query for [[Tasks0]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getExecutorTasks()
     {
@@ -173,10 +176,59 @@ class User extends ActiveRecord
     /**
      * Gets query for [[UserCategories]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUserCategories()
     {
         return $this->hasMany(UserCategory::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * @param $id
+     * @return IdentityInterface|null
+     */
+    public static function findIdentity($id)
+    {
+        return self::findOne($id);
+    }
+
+    /**
+     * @param $token
+     * @param $type
+     * @return IdentityInterface|null
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        // TODO: Implement findIdentityByAccessToken() method.
+    }
+
+    /**
+     * @return int|string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAuthKey()
+    {
+        // TODO: Implement getAuthKey() method.
+    }
+
+    /**
+     * @param $authKey
+     * @return bool|null
+     */
+    public function validateAuthKey($authKey)
+    {
+        // TODO: Implement validateAuthKey() method.
+    }
+
+    public function validatePassword($password)
+    {
+        return Yii::$app->security->validatePassword($password, $this->password);
     }
 }

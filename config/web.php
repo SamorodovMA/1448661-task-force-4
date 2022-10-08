@@ -11,10 +11,10 @@ $config = [
     'timeZone' => 'Europe/Moscow',
     'name' => 'Taskforce',
     'layout' => 'main',
-   'defaultRoute' => 'tasks',
+    'defaultRoute' => 'landing',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
 
@@ -31,7 +31,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'landing/error',
         ],
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,
