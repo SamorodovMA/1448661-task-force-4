@@ -48,7 +48,7 @@ class SignupForm extends Model
             ['password', 'string', 'min' => 4, 'max' => 24],
             ['password', 'compare'],
             ['city_id', 'integer'],
-            ['city_id', 'exist', 'targetClass' => '\app\models\User'],
+            ['city_id', 'exist', 'targetClass' => '\app\models\City', 'targetAttribute' => ['city_id' => 'id']],
             ['is_executor', 'integer']
         ];
     }
