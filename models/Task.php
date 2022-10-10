@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "tasks".
@@ -108,9 +109,9 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Category]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getCategory()
+    public function getCategory(): ActiveQuery
     {
         return $this->hasOne(Category::class, ['id' => 'category_id']);
     }
@@ -118,9 +119,9 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[City]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getCity()
+    public function getCity(): ActiveQuery
     {
         return $this->hasOne(City::class, ['id' => 'city_id']);
     }
@@ -128,9 +129,9 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Customer]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getCustomer()
+    public function getCustomer(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'customer_id']);
     }
@@ -138,9 +139,9 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Executor]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getExecutor()
+    public function getExecutor(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'executor_id']);
     }
@@ -148,9 +149,9 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Feedbacks]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getFeedbacks()
+    public function getFeedbacks(): ActiveQuery
     {
         return $this->hasMany(Feedback::class, ['task_id' => 'id']);
     }
@@ -158,9 +159,9 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Location]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getLocation()
+    public function getLocation(): ActiveQuery
     {
         return $this->hasOne(Location::class, ['id' => 'location_id']);
     }
@@ -168,9 +169,9 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Responses]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getResponses()
+    public function getResponses(): ActiveQuery
     {
         return $this->hasMany(Response::class, ['task_id' => 'id']);
     }
@@ -178,9 +179,9 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[TaskFiles]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getTaskFiles()
+    public function getTaskFiles(): ActiveQuery
     {
         return $this->hasMany(TaskFile::class, ['task_id' => 'id']);
     }

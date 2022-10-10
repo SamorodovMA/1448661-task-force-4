@@ -44,7 +44,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '@w
                     <a href="#" class="link link--nav" >Мои задания</a>
                 </li>
                 <li class="list-item">
-                    <a href="#" class="link link--nav" >Создать задание</a>
+                    <a href="<?= Url::to('/add-task')?>" class="link link--nav" >Создать задание</a>
                 </li>
                 <li class="list-item">
                     <a href="#" class="link link--nav" >Настройки</a>
@@ -79,9 +79,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '@w
 
 </header>
 
-<main class="main-content container">
     <?= $content ?>
-</main>
 
 <?php $this->endBody() ?>
 </body>

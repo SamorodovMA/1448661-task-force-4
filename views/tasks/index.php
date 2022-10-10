@@ -15,7 +15,7 @@ use yii\widgets\ListView;
 $this->title = 'tasks';
 
 ?>
-
+<main class="main-content container">
 <div class="left-column">
     <h3 class="head-main head-task">Новые задания</h3>
     <?= ListView::widget([
@@ -42,7 +42,6 @@ $this->title = 'tasks';
     ]);
     ?>
 </div>
-
 <div class="right-column">
     <div class="right-card black">
         <div class="search-form">
@@ -111,7 +110,6 @@ $this->title = 'tasks';
         </div>
     </div>
 </div>
-
-
+</main>
 
 

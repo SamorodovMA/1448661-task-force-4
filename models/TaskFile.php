@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "task_files".
@@ -14,7 +16,7 @@ use Yii;
  * @property File $file
  * @property Task $task
  */
-class TaskFile extends \yii\db\ActiveRecord
+class TaskFile extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -52,7 +54,7 @@ class TaskFile extends \yii\db\ActiveRecord
     /**
      * Gets query for [[File]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getFile()
     {
@@ -62,7 +64,7 @@ class TaskFile extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Task]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTask()
     {

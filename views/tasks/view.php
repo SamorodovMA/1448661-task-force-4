@@ -3,8 +3,8 @@
  * @var object $task
  */
 use yii\helpers\Url;
-
 ?>
+<main class="main-content container">
 <div class="left-column">
         <div class="head-wrapper">
             <h3 class="head-main"><?=$task->name?></h3>
@@ -21,6 +21,7 @@ use yii\helpers\Url;
             <p class="map-address">Новый арбат, 23, к. 1</p>
         </div>
         <h4 class="head-regular">Отклики на задание</h4>
+
 
 <?php foreach ($task->responses as $response): ?>
         <div class="response-card">
@@ -64,15 +65,14 @@ use yii\helpers\Url;
         </div>
         <div class="right-card white file-card">
             <h4 class="head-card">Файлы задания</h4>
+            <?php foreach ($task->taskFiles as $taskFile):?>
             <ul class="enumeration-list">
                 <li class="enumeration-item">
-                    <a href="#" class="link link--block link--clip">my_picture.jpg</a>
+                    <a href="<?= $taskFile->file->path; ?>" class="link link--block link--clip">my_picture.jpg</a>
                     <p class="file-size">356 Кб</p>
                 </li>
-                <li class="enumeration-item">
-                    <a href="#" class="link link--block link--clip">information.docx</a>
-                    <p class="file-size">12 Кб</p>
-                </li>
+                <?php endforeach;?>
             </ul>
         </div>
     </div>
+</main>
