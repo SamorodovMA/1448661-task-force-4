@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use app\models\AddTaskForm;
 use app\models\Task;
 use app\models\TaskFilterForm;
 use yii\data\ActiveDataProvider;
@@ -10,7 +11,7 @@ use yii\web\NotFoundHttpException;
 class TasksController extends SecuredController
 {
 
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $taskFilterForm = new TaskFilterForm();
 
@@ -60,13 +61,18 @@ class TasksController extends SecuredController
         );
     }
 
-    public function actionView($id=null) {
+    /**
+     * @throws NotFoundHttpException
+     */
+    public function actionView($id=null): string
+    {
 
+        $addTask = new AddTaskForm();
         $task = Task::findOne($id);
         if (!$task) {
             throw new NotFoundHttpException("Задания с ID $id не найден");
         }
-        return $this->render('view', ['task' => $task]);
+        return $this->render('view', ['task' => $task, 'addTask' => $addTask]);
     }
 
 }

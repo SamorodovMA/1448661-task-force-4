@@ -1,6 +1,7 @@
 <?php
 /** @var yii\web\View $this
  * @var object $task
+ * @var object $addTask
  */
 use yii\helpers\Url;
 ?>
@@ -65,11 +66,13 @@ use yii\helpers\Url;
         </div>
         <div class="right-card white file-card">
             <h4 class="head-card">Файлы задания</h4>
-            <?php foreach ($task->taskFiles as $taskFile):?>
+            <?php
+
+            foreach ($task->taskFiles as $taskFile):?>
             <ul class="enumeration-list">
                 <li class="enumeration-item">
-                    <a href="<?= $taskFile->file->path; ?>" class="link link--block link--clip">my_picture.jpg</a>
-                    <p class="file-size">356 Кб</p>
+                    <a href="<?= '/img/task-file/' . $taskFile->file->path; ?>" class="link link--block link--clip"><?= $taskFile->file->path; ?></a>
+                    <p class="file-size"><?= $addTask->fileSize($taskFile->file->path);?> </p>
                 </li>
                 <?php endforeach;?>
             </ul>

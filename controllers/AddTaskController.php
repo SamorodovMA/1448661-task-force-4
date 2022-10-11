@@ -3,15 +3,45 @@
 namespace app\controllers;
 
 use app\models\AddTaskForm;
+use app\models\User;
+use Throwable;
 use Yii;
-use yii\helpers\Url;
+use yii\filters\AccessControl;
 use yii\web\Response;
 use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 
 class AddTaskController extends SecuredController
 {
-    public function actionIndex()
+    /**
+     * Ограничение доступа к странице add-task
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            $currentUserId = Yii::$app->user->id;
+                            $user = User::findOne($currentUserId);
+                          return !($user->is_executor !== 0);
+                        }
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @return array|string
+     * @throws Throwable
+     */
+    public function actionIndex(): array|string
     {
         $addTaskForm = new AddTaskForm();
 
