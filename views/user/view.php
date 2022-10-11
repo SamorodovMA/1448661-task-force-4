@@ -3,6 +3,7 @@
 * @var object $user
 */
 ?>
+<main class="main-content container">
 <div class="left-column">
     <h3 class="head-main"><?= $user->name; ?></h3>
     <div class="user-card">
@@ -93,3 +94,4 @@
         </ul>
     </div>
 </div>
+</main>
