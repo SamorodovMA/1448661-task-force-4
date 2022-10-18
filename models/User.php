@@ -38,7 +38,8 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-
+    const EXECUTOR_RULE = 1;
+    const CUSTOMER_RULE = 0;
     const STATUS_OPEN = 1;
     const STATUS_BUSY = 2;
 

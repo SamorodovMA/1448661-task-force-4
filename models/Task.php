@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "tasks".
@@ -31,7 +32,7 @@ use yii\db\ActiveQuery;
  * @property Response[] $responses
  * @property TaskFile[] $taskFiles
  */
-class Task extends \yii\db\ActiveRecord
+class Task extends ActiveRecord
 {
     const STATUS_NEW = 1;
     const STATUS_CANCELLED = 2;

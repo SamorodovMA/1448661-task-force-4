@@ -2,11 +2,16 @@
 /** @var yii\web\View $this
  * @var object $task
  * @var object $addTask
+ * @var $responseForm AddResponse
+ * @var $feedBackForm AddFeedback
  */
+
+use app\models\AddFeedback;
+use app\models\AddResponse;
 use yii\helpers\Url;
 ?>
 <main class="main-content container">
-<div class="left-column">
+    <div class="left-column">
         <div class="head-wrapper">
             <h3 class="head-main"><?=$task->name?></h3>
             <p class="price price--big"><?=$task->budget?> ₽</p>
@@ -79,3 +84,18 @@ use yii\helpers\Url;
         </div>
     </div>
 </main>
+
+<?= $this->render('_popupCompleteForm', [
+    'feedBackForm' => $feedBackForm
+]); ?>
+
+<?= $this->render('_popupRefusal', [
+
+]); ?>
+
+<?= $this->render('_popupResponseForm', [
+    'responseForm' => $responseForm
+
+]); ?>
+
+<div class="overlay"></div>

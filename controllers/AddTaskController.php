@@ -29,7 +29,7 @@ class AddTaskController extends SecuredController
                         'matchCallback' => function ($rule, $action) {
                             $currentUserId = Yii::$app->user->id;
                             $user = User::findOne($currentUserId);
-                          return !($user->is_executor !== 0);
+                          return !($user->is_executor !== User::CUSTOMER_RULE);
                         }
                     ],
                 ],
