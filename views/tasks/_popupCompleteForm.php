@@ -27,13 +27,11 @@ use yii\widgets\ActiveForm;
 
             <?= $form->field($feedBackForm, 'comment', ['inputOptions' => ['class'=> null]])->textarea(); ?>
 
-
-
             <p class="completion-head control-label">Оценка работы</p>
-            <div class="stars-rating big active-stars">
-                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
-            </div>
-
+            <div class="stars-rating big active-stars"><span class="fill-star">&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span></div>
+            <?= $form->field($feedBackForm, 'rating',[
+                'template' => '{input}{error}',
+            ])->hiddenInput(['value' => '0']) ?>
 
 
             <?= Html::submitInput('Завершить', ['class' => 'button button--pop-up button--blue']); ?>
